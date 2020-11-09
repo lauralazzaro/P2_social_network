@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const postsRoutes = require('./routes/postsRoutes');
+const usersRoutes = require('./routes/usersRoutes');
 const path = require('path');
 const cors = require('cors');
 require('dotenv').config();
@@ -33,6 +34,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
 app.use('/posts', postsRoutes);
+app.use('/auth', usersRoutes);
 app.use('/', (req, res) => {
     res.send('Server Created!');
 });
