@@ -1,7 +1,8 @@
-// const mysql = require('mysql');
 const express = require('express');
 const bodyParser = require('body-parser');
 const postsRoutes = require('./routes/postsRoutes');
+const path = require('path');
+const cors = require('cors');
 require('dotenv').config();
 
 const connection = require('./database/db.connect');
@@ -12,27 +13,28 @@ connection.connect(function(err) {
     }
     console.log('Connected to MySQL server');
 
-    // const sql = `SELECT * FROM categories`;
-    // connection.query(sql, (error, results, fields) => {
-    //     if (error) {
-    //         return console.error(error.message);
-    //     }
-    //     console.log(results);
-    // });
 });
 
 const app = express();
 
+// app.use((req, res, next) => {
+//     res.setHeader('Access-Control-Allow-Origin', '*');
+//     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
+//     res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE');
+//     next();
+// });
+app.use(cors());
 // parse requests of content-type: application/json
 app.use(bodyParser.json());
 
 // parse requests of content-type: application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use('/posts', postsRoutes);
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
-// app.use('/', (req, res, next) => {
-//     res.send('Server Created!');
-// });
+app.use('/posts', postsRoutes);
+app.use('/', (req, res, next) => {
+    res.send('Server Created!');
+});
 
 module.exports = app;
