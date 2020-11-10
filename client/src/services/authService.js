@@ -1,7 +1,7 @@
 import api from '@/services/api'
 
 export default {
-  register (credential) {
+  signup (credential) {
     return api().post('auth', credential)
   }
 }

@@ -14,7 +14,7 @@
       v-model="password"
       placeholder="password"/>
     <br>
-    <button @click="login()">Login</button>
+    <button @click="signup()">Login</button>
   </div>
 </template>
 
@@ -30,8 +30,8 @@ export default {
     }
   },
   methods: {
-    async login() {
-      const response = await auth.register({
+    async signup() {
+      const response = await auth.signup({
         email: this.email,
         password: this.password
       })
