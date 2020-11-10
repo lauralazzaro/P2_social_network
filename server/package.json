@@ -1,0 +1,30 @@
+{
+  "name": "p7-fullstack-openclassrooms",
+  "version": "0.1.0",
+  "description": "p7 openclassrooms - create a company social network",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lauralazzaro/P7-fullstack-openclassrooms.git"
+  },
+  "author": "laura lazzaro",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lauralazzaro/P7-fullstack-openclassrooms/issues"
+  },
+  "homepage": "https://github.com/lauralazzaro/P7-fullstack-openclassrooms#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "cors": "^2.8.5",
+    "eslint": "^7.13.0",
+    "nodemon": "^2.0.6"
+  }
+}
