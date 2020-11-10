@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const postsCtrl = require('../controllers/usersCtrl');
+const usersCtrl = require('../controllers/usersCtrl');
+
 
 router.post('', (req, res) => {
     res.send({
@@ -8,5 +9,7 @@ router.post('', (req, res) => {
     });
     console.log(req.body);
 });
+
+router.post('/createUser', usersCtrl.createUser);
 
 module.exports = router;
