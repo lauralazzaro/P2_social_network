@@ -27,32 +27,36 @@
 // });
 //
 // module.exports = userModel;
-module.exports = (sequelize, DataTypes) => {
-    sequelize.define('user', {
+const Sequelize = require('sequelize');
+const db = require('../database/db.connect');
+
+const user = db.define('user', {
         id_user: {
-            type: DataTypes.INT,
+            type: Sequelize.INTEGER,
             allowNull: false,
             unsigned: true,
             autoIncrement: true,
-            unique: true
+            unique: true,
+            primaryKey: true
         },
         email: {
-            type: DataTypes.STRING,
+            type: Sequelize.STRING,
             allowNull: false,
             unique: true
         },
         password:{
-            type: DataTypes.STRING,
+            type: Sequelize.STRING,
             allowNull: false
         },
         username:{
-            type: DataTypes.STRING,
+            type: Sequelize.STRING,
             allowNull: false,
             unique: true
         },
         id_role:{
-            type: DataTypes.INT,
+            type: Sequelize.INTEGER,
             allowNull: false
         }
-    })
-};
+    });
+
+module.exports = user;

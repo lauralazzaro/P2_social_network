@@ -10,6 +10,6 @@ router.post('', (req, res) => {
     console.log(req.body);
 });
 
-router.post('/createUser', usersCtrl.createUser);
+router.get('/createUser', usersCtrl.createUser);
 
 module.exports = router;

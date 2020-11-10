@@ -3,21 +3,10 @@ const bodyParser = require('body-parser');
 const postsRoutes = require('./routes/postsRoutes');
 const usersRoutes = require('./routes/usersRoutes');
 const connection = require('./database/db.connect');
-const {sequelize} = require('./models/userModel');
 const path = require('path');
 const cors = require('cors');
 
-
-
 require('dotenv').config();
-
-// connection.connect(function(err) {
-//     if(err){
-//         return console.error('error: ' + err.message);
-//     }
-//     console.log('Connected to MySQL server');
-//
-// });
 
 connection.sync()
     .then(() => console.log('Connected to DB'))

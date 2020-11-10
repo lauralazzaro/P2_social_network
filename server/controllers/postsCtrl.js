@@ -1,4 +1,6 @@
 const connection = require('../database/db.connect');
+const db = require('../database/db.connect');
+const post = require('../models/postsModel');
 const fs = require('fs');
 
 function queryFunction(res, sql) {
@@ -11,13 +13,15 @@ function queryFunction(res, sql) {
 }
 
 exports.getAllPosts = (req, res) => {
-    const sql = `SELECT * FROM posts`;
-    queryFunction(res, sql);
+    post.findAll()
+        .then(posts => res.send(posts))
+        .catch( (err) => console.log(err));
 };
 
 exports.getOnePost = (req, res) => {
-    const sql = `SELECT * FROM posts WHERE id_post = ` + req.params.id;
-    queryFunction(res, sql);
+    post.findOne({where: {id_post: req.params.id}})
+        .then(post => res.send(post))
+        .catch( (err) => console.log(err))
 };
 
 exports.createPost = (req, res) => {
