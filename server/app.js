@@ -8,7 +8,7 @@ const cors = require('cors');
 
 require('dotenv').config();
 
-connection.sync()
+connection.authenticate()
     .then(() => console.log('Connected to DB'))
     .catch((err) => console.log('connection to db failed: ' + err));
 

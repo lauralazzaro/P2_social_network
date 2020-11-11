@@ -14,7 +14,7 @@ function queryFunction(res, sql) {
 
 exports.getAllPosts = (req, res) => {
     post.findAll()
-        .then(posts => res.send(posts))
+        .then(posts => res.status(200).json(posts))
         .catch( (err) => console.log(err));
 };
 
