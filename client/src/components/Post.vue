@@ -13,23 +13,21 @@ import post from '../services/postsService';
 export default {
   name: 'Post',
   data() {
-      return {
-        post: {}
+    return {
+      post: {}
     }
   },
   methods: {
     getPost() {
-      post.getOnePost()
+      post.getOnePost(this.$route.params.id)
         .then((res) => {
           this.post = res.data;
-          console.log(res.data);
-})
+        })
         .catch((err) => console.log(err));
     }
   },
   mounted() {
-    console.log(this.$route.params.id);
-    return this.getPost(this.$route.params.id);
+    return this.getPost();
   }
 }
 </script>

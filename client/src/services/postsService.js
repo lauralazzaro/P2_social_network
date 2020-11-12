@@ -5,7 +5,7 @@ export default {
     return api().get('posts')
   },
   getOnePost (id) {
-    return api().get('posts/:id')
+    return api().get(`posts/${id}`)
   }
 }
 
