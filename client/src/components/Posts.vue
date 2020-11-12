@@ -1,9 +1,12 @@
 <template>
-  <div>
+  <div class="">
     <h1> Posts page</h1>
-    <div v-for="post in allPosts">
-    {{ post }} -
-    </div>
+    <b-list-group v-for="post in allPosts" :key="post.id_post">
+      <b-list-group-item>
+        {{ post }}
+        <b-link :to="`${post.id_post}`">open</b-link>
+      </b-list-group-item>
+    </b-list-group>
   </div>
 </template>
 
@@ -13,8 +16,8 @@ import posts from '../services/postsService';
 export default {
   name: 'Posts',
   data() {
-      return {
-        allPosts: {}
+    return {
+      allPosts: {}
     }
   },
   methods: {
@@ -27,37 +30,10 @@ export default {
     }
   },
   mounted() {
-     return this.getPost();
+    return this.getPost();
   }
 }
-
-// export default {
-//   name: 'Posts',
-//   data() {
-//     return {
-//       allPosts: {
-//         id_post: null,
-//         id_user: null,
-//         text: null,
-//         id_image: null,
-//         id_category: null,
-//         createdAt: null,
-//         updatedAt: null
-//       }
-//     }
-//   },
-//   created: function () {
-//     posts.getAllPosts()
-//       .then(res => {
-//         this.data = res.data
-//         console.log(this.data)
-//       })
-//       .catch(err => console.log(err))
-//   }
-//
-// }
 </script>
-
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 </style>
