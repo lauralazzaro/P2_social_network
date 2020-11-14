@@ -4,7 +4,7 @@
     <b-list-group v-for="post in allPosts" :key="post.id_post">
       <b-list-group-item>
         {{ post }}
-        <b-link :to="`${post.id_post}`">open</b-link>
+        <b-link :to="`posts/${post.id_post}`">open</b-link>
       </b-list-group-item>
     </b-list-group>
   </div>

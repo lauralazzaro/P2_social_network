@@ -12,21 +12,22 @@ const user = db.define('user', {
         },
         email: {
             type: Sequelize.STRING,
-            allowNull: false,
+            allowNull: true,
             unique: true
         },
         password:{
             type: Sequelize.STRING,
-            allowNull: false
+            allowNull: true
         },
         username:{
             type: Sequelize.STRING,
-            allowNull: false,
+            allowNull: true,
             unique: true
         },
         id_role:{
             type: Sequelize.INTEGER,
-            allowNull: false
+            allowNull: true,
+            unsigned: true
         }
     });
 
