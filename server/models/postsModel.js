@@ -17,8 +17,8 @@ const post = db.define('post', {
     text:{
         type: Sequelize.TEXT
     },
-    id_image:{
-        type: Sequelize.INTEGER,
+    imageUrl:{
+        type: Sequelize.STRING,
         unsigned: true,
     },
     id_category:{
