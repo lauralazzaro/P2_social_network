@@ -18,11 +18,19 @@ exports.createPost = (req, res) => {
 
 };
 
-exports.modifyPost = (req, res) => {
+exports.updatePost = (req, res) => {
 
 };
 
 exports.deletePost = (req, res) => {
-
+    post.findOne({where: {id_post: req.params.id}})
+        .then((ok) => {
+            if(ok) {
+                post.destroy({where: {id_post: req.params.id}})
+                    .then(() => res.status(200).json({message: 'posts deleted'}))
+                    .catch((err) => res.status(400).json({err}))
+            } else throw ('Post not found');
+        })
+        .catch((err) => res.status(500).json(err))
 };
 
