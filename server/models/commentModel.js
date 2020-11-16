@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize');
 const db = require('../database/db.connect');
 
-const post = db.define('post', {
-    id_post: {
+const comment = db.define('comment', {
+    id_comment: {
         type: Sequelize.INTEGER,
         allowNull: false,
         unsigned: true,
@@ -10,13 +10,13 @@ const post = db.define('post', {
         unique: true,
         primaryKey: true
     },
+    id_post: {
+        type: Sequelize.INTEGER,
+        unsigned: true,
+    },
     id_user: {
         type: Sequelize.INTEGER,
         unsigned: true,
-        reference: {
-            model: 'user',
-            key: 'id_user'
-        }
     },
     text:{
         type: Sequelize.TEXT
@@ -24,11 +24,7 @@ const post = db.define('post', {
     imageUrl:{
         type: Sequelize.STRING,
         unsigned: true,
-    },
-    id_subject:{
-        type: Sequelize.INTEGER,
-        unsigned: true,
     }
 });
 
-module.exports = post;
+module.exports = comment;

@@ -25,7 +25,8 @@ exports.login = (req, res) => {
                 {email: email},
                 {password: password}
             ]
-        }
+        },
+        include: 'role'
     })
         .then((user) => res.status(201).json(user))
         .catch((err) => res.status(400).json({err}));

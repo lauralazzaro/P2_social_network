@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const postsRoutes = require('./routes/postsRoutes');
 const usersRoutes = require('./routes/usersRoutes');
 const connection = require('./database/db.connect');
+const relations = require('./models/relations');
 const path = require('path');
 const cors = require('cors');
 
@@ -11,6 +12,10 @@ require('dotenv').config();
 connection.authenticate()
     .then(() => console.log('Connected to DB'))
     .catch((err) => console.log('connection to db failed: ' + err));
+
+relations.sync({force: false})
+    .then(() => console.log('Tables synchronized'))
+    .catch((err) => console.log('Unable to sync: ' + err));;
 
 const app = express();
 
