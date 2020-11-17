@@ -1,43 +1,58 @@
-const connection = require('../database/db.connect');
+const post = require('../models/postsModel');
 const fs = require('fs');
 
-function queryFunction(res, sql) {
-    connection.query(sql, (error, results, fields) => {
-        if (error) {
-            res.status(400).json({error});
-        }
-        res.status(200).json(results);
-    });
-}
-
 exports.getAllPosts = (req, res) => {
-    const sql = `SELECT * FROM posts`;
-    queryFunction(res, sql);
+    post.findAll({include: 'user'})
+        .then((posts) => res.status(200).json(posts))
+        .catch((err) => res.status(400).json({err}))
 };
 
 exports.getOnePost = (req, res) => {
-    const sql = `SELECT * FROM posts WHERE id_post = ` + req.params.id;
-    queryFunction(res, sql);
+    post.findOne({where: {id_post: req.params.id}})
+        .then((post) => res.status(200).json(post))
+        .catch((err) => res.status(400).json({err}))
 };
 
 exports.createPost = (req, res) => {
-
+    const data = req.body.post;
+    post.create({
+        id_user: data.id_user,
+        text: data.text,
+        imageUrl: data.imageUrl,
+        id_subject: data.id_subject
+    })
+        .then(() => res.status(200).json({message: 'post created'}))
+        .catch((err) => res.status(400).json({err}))
 };
 
-exports.modifyPost = (req, res) => {
-
+exports.updatePost = (req, res) => {
+    const data = req.body.post;
+    post.findOne({where: {id_post: req.params.id}})
+        .then((found) => {
+            if (found) {
+                post.update({
+                        id_user: data.id_user,
+                        text: data.text,
+                        imageUrl: data.imageUrl,
+                        id_subject: data.id_subject
+                    },
+                    {where: {id_post: req.params.id}})
+                    .then(() => res.status(200).json({message: 'post updated'}))
+                    .catch((err) => res.status(400).json({err}))
+            } else throw ('Post not found');
+        })
+        .catch((err) => res.status(500).json(err))
 };
 
 exports.deletePost = (req, res) => {
-    const sql = `DELETE FROM posts WHERE id_post = ` + req.params.id;
-    const imageUrl = `
-        SELECT images.url 
-        FROM images 
-        WHERE images.id_image IN 
-            (SELECT posts.id_image
-            FROM posts
-            WHERE id_post =` + req.params.id + `)`;
-
-    queryFunction(res, sql);
+    post.findOne({where: {id_post: req.params.id}})
+        .then((found) => {
+            if (found) {
+                post.destroy({where: {id_post: req.params.id}})
+                    .then(() => res.status(200).json({message: 'post deleted'}))
+                    .catch((err) => res.status(400).json({err}))
+            } else throw ('Post not found');
+        })
+        .catch((err) => res.status(500).json(err))
 };
 
