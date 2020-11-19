@@ -6,7 +6,7 @@
         <b-col>
           <b-card>
             <b-card-text>
-              {{ post.text }}
+              {{ post.text }} <i>created by</i> <b>{{ post.user.username }}</b>
             </b-card-text>
             <div v-if="`${post.imageUrl}`">
               <img
@@ -14,7 +14,7 @@
                 alt="image"
               >
             </div>
-            <router-link :to="`posts/${post.id_post}`">
+            <router-link :to="`${post.id_post}`">
               open
             </router-link>
           </b-card>
@@ -35,22 +35,22 @@ export default {
     }
   },
   methods: {
-    getPost() {
+    getPosts() {
       posts.getAllPosts()
         .then((res) => {
-          this.allPosts = res.data;
+          this.allPosts = res.data
         })
-        .catch((err) => console.log(err));
+        .catch((err) => console.log(err))
     }
   },
   mounted() {
-    return this.getPost();
+    return this.getPosts()
   }
 }
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-img{
+img {
   max-width: 30rem;
 }
 
