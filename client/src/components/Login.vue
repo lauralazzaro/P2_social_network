@@ -41,6 +41,8 @@ export default {
     onSubmit() {
       auth.login(this.body)
         .then((res) => {
+          if (res.data != null) this.$router.push('/posts')
+          else throw 'Wrong credential or user not existing'
           console.log(res.data)
         }).catch((err) => console.log(err))
     }
