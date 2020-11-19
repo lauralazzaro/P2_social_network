@@ -26,7 +26,7 @@
           v-model="body.password"
           placeholder="password">
         </b-form-input>
-        <b-button @click="onSubmit()">Login</b-button>
+        <b-button @click="onSubmit()">Signup</b-button>
       </b-form-group>
     </b-form>
   </div>

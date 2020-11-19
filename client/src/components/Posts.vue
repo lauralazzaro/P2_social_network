@@ -5,16 +5,15 @@
       <b-row v-for="post in allPosts" :key="post.id_post">
         <b-col>
           <b-card>
-            <b-card-text>
+            <b-card-text v-if="`${post.text}` !== 'null'">
               {{ post.text }} <i>created by</i> <b>{{ post.user.username }}</b>
             </b-card-text>
-            <div v-if="`${post.imageUrl}`">
               <img
+                v-if="`${post.imageUrl}` !== 'null'"
                 :src="`${post.imageUrl}`"
                 alt="image"
               >
-            </div>
-            <router-link :to="`${post.id_post}`">
+            <router-link :to="`posts/${post.id_post}`">
               open
             </router-link>
           </b-card>

@@ -5,10 +5,10 @@
       <b-row>
         <b-col>
           <b-card>
-            <b-card-text>
+            <b-card-text v-if="`${post.text}` !== 'null'">
               {{ post.text }}
             </b-card-text>
-            <div v-if="`${post.imageUrl}`">
+            <div v-if="`${post.imageUrl}` !== 'null'">
               <img
                 :src="`${post.imageUrl}`"
                 alt="image"
@@ -23,11 +23,12 @@
         </b-col>
         <b-col>
           <b-card>
-            <b-card-text>
+            <b-card-text v-if="`${comment.text}` !== 'null'">
               {{ comment.text }}
             </b-card-text>
-            <div v-if="`${comment.imageUrl}`">
+            <div >
               <img
+                v-if="`${comment.imageUrl}` !== 'null'"
                 :src="`${comment.imageUrl}`"
                 alt="image"
               >
@@ -63,7 +64,6 @@ export default {
       post.getAllComments(this.$route.params.id)
         .then((res) => {
           this.comments = res.data
-          console.log(this.comments)
         }).catch((err) => console.log(err))
     }
   },
