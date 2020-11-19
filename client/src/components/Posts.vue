@@ -1,12 +1,25 @@
 <template>
-  <div class="">
+  <div class="container">
     <h1> Posts page</h1>
-    <b-list-group v-for="post in allPosts" :key="post.id_post">
-      <b-list-group-item>
-        {{ post }}
-        <b-link :to="`posts/${post.id_post}`">open</b-link>
-      </b-list-group-item>
-    </b-list-group>
+    <b-container>
+      <b-row v-for="post in allPosts" :key="post.id_post">
+        <b-col>
+          <b-card>
+            <b-card-text v-if="`${post.text}` !== 'null'">
+              {{ post.text }} <i>created by</i> <b>{{ post.user.username }}</b>
+            </b-card-text>
+              <img
+                v-if="`${post.imageUrl}` !== 'null'"
+                :src="`${post.imageUrl}`"
+                alt="image"
+              >
+            <router-link :to="`posts/${post.id_post}`">
+              open
+            </router-link>
+          </b-card>
+        </b-col>
+      </b-row>
+    </b-container>
   </div>
 </template>
 
@@ -21,19 +34,23 @@ export default {
     }
   },
   methods: {
-    getPost() {
+    getPosts() {
       posts.getAllPosts()
         .then((res) => {
-          this.allPosts = res.data;
+          this.allPosts = res.data
         })
-        .catch((err) => console.log(err));
+        .catch((err) => console.log(err))
     }
   },
   mounted() {
-    return this.getPost();
+    return this.getPosts()
   }
 }
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+img {
+  max-width: 30rem;
+}
+
 </style>

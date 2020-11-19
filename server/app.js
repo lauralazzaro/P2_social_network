@@ -29,7 +29,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
-app.use('/posts/comments', commentsRoutes);
 app.use('/posts', postsRoutes);
 app.use('/auth', usersRoutes);
 

@@ -6,6 +6,8 @@ export default {
   },
   getOnePost (id) {
     return api().get(`posts/${id}`)
+  },
+  getAllComments (id) {
+    return api().get(`posts/${id}/comments`)
   }
 }
-
