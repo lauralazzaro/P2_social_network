@@ -2,13 +2,20 @@ const post = require('../models/postsModel');
 const fs = require('fs');
 
 exports.getAllPosts = (req, res) => {
-    post.findAll({include: 'user'})
+    post.findAll({
+        include: 'user',
+        order: [
+            ['createdAt','DESC']
+        ]
+    })
         .then((posts) => res.status(200).json(posts))
         .catch((err) => res.status(400).json({err}))
 };
 
 exports.getOnePost = (req, res) => {
-    post.findOne({where: {id_post: req.params.id}})
+    post.findOne({
+        where: {id_post: req.params.id},
+        include: 'user'})
         .then((post) => res.status(200).json(post))
         .catch((err) => res.status(400).json({err}))
 };

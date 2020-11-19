@@ -1,12 +1,26 @@
 <template>
-  <div class="">
+  <div class="container">
     <h1> Posts page</h1>
-    <b-list-group v-for="post in allPosts" :key="post.id_post">
-      <b-list-group-item>
-        {{ post }}
-        <b-link :to="`posts/${post.id_post}`">open</b-link>
-      </b-list-group-item>
-    </b-list-group>
+    <b-container>
+      <b-row v-for="post in allPosts" :key="post.id_post">
+        <b-col>
+          <b-card>
+            <b-card-text>
+              {{ post.text }}
+            </b-card-text>
+            <div v-if="`${post.imageUrl}`">
+              <img
+                :src="`${post.imageUrl}`"
+                alt="image"
+              >
+            </div>
+            <router-link :to="`posts/${post.id_post}`">
+              open
+            </router-link>
+          </b-card>
+        </b-col>
+      </b-row>
+    </b-container>
   </div>
 </template>
 
@@ -36,4 +50,8 @@ export default {
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+img{
+  max-width: 30rem;
+}
+
 </style>
