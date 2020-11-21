@@ -8,11 +8,13 @@
             <b-card-text v-if="`${post.text}` !== 'null'">
               {{ post.text }} <i>created by</i> <b>{{ post.user.username }}</b>
             </b-card-text>
+            <div>
               <img
                 v-if="`${post.imageUrl}` !== 'null'"
                 :src="`${post.imageUrl}`"
                 alt="image"
               >
+            </div>
             <router-link :to="`posts/${post.id_post}`">
               open
             </router-link>

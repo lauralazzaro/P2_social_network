@@ -48,15 +48,15 @@ export default {
   },
   methods: {
     onSubmit() {
-      auth.signup(this.body)
-        .then((res) => {
-          console.log(res.data)
-        }).catch((err) => console.log(err))
+      if (this.body.email !== '' && this.body.username !== '' && this.body.password !== '') {
+        auth.signup(this.body)
+          .then(() => console.log('User Created'))
+          .catch((err) => console.log(err))
+      } else throw 'must insert data'
     }
   }
 }
 </script>
-
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 </style>
