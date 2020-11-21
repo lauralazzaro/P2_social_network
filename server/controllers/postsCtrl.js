@@ -21,7 +21,7 @@ exports.getOnePost = (req, res) => {
 };
 
 exports.createPost = (req, res) => {
-    const data = req.body.post;
+    const data = req.body;
     post.create({
         id_user: data.id_user,
         text: data.text,

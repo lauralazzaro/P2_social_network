@@ -50,9 +50,9 @@ export default {
     onSubmit() {
       if (this.body.email !== '' && this.body.username !== '' && this.body.password !== '') {
         auth.signup(this.body)
-          .then(() => console.log('User Created'))
+          .then(() => this.$router.push('/posts'))
           .catch((err) => console.log(err))
-      } else throw 'must insert data'
+      } else throw new Error('You must insert all fields')
     }
   }
 }

@@ -1,13 +1,16 @@
 import api from '@/services/api'
 
 export default {
-  getAllPosts () {
+  getAllPosts() {
     return api().get('posts')
   },
-  getOnePost (id) {
+  getOnePost(id) {
     return api().get(`posts/${id}`)
   },
-  getAllComments (id) {
+  getAllComments(id) {
     return api().get(`posts/${id}/comments`)
+  },
+  createPost(body) {
+    return api().post(`posts`, body)
   }
 }

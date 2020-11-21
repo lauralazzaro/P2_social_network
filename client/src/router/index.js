@@ -4,6 +4,7 @@ import Login from '../components/Login'
 import Posts from '../components/Posts'
 import Post from '../components/Post'
 import Signup from '../components/Signup'
+import PostForm from '../components/PostForm'
 
 Vue.use(Router)
 
@@ -19,6 +20,11 @@ export default new Router({
       component: Signup
     },
     {
+      path: '/posts/createPost',
+      name: 'PostForm',
+      component: PostForm
+    },
+    {
       path: '/posts',
       name: 'Posts',
       component: Posts
@@ -27,6 +33,10 @@ export default new Router({
       path: '/posts/:id',
       name: 'Post',
       component: Post
+    },
+    {
+      path: "*",
+      redirect: '/posts'
     }
   ]
 })

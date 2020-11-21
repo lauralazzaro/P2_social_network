@@ -13,6 +13,7 @@
                 v-if="`${post.imageUrl}` !== 'null'"
                 :src="`${post.imageUrl}`"
                 alt="image"
+                class="img-fluid"
               >
             </div>
             <router-link :to="`posts/${post.id_post}`">
