@@ -10,6 +10,8 @@
     "sourceType": "module"
   },
   "rules": {
-    "quotes": "off"
+    "quotes": "off",
+    "avoidEscape": true,
+    "allowTemplateLiterals": true
   }
 }

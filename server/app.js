@@ -16,7 +16,7 @@ connection.authenticate()
 
 relations.sync({force: false})
     .then(() => console.log('Tables synchronized'))
-    .catch((err) => console.log('Unable to sync: ' + err));;
+    .catch((err) => console.log('Unable to sync: ' + err));
 
 const app = express();
 
