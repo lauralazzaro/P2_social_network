@@ -11,6 +11,6 @@ export default {
     return api().get(`posts/${id}/comments`)
   },
   createPost(body) {
-    return api().post(`posts`, body)
+    return api().post('posts', body)
   }
 }

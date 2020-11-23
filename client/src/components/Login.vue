@@ -41,8 +41,12 @@ export default {
     onSubmit() {
       auth.login(this.body)
         .then((res) => {
-          if (res.data != null) this.$router.push('/posts')
-          else throw Error('Username or password incorrect')
+          if (res.data != null) {
+            this.$router.push('/posts')
+          }
+          else {
+            throw Error('Username or password incorrect')
+          }
           console.log(res.data)
         }).catch((err) => console.log(err))
     }

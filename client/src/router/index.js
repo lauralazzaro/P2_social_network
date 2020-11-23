@@ -35,7 +35,7 @@ export default new Router({
       component: Post
     },
     {
-      path: "*",
+      path: '*',
       redirect: '/posts'
     }
   ]

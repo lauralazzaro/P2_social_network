@@ -1,24 +1,18 @@
 <template>
   <div>
-    <b-form>
-      <b-form-group>
-        <b-form-input
-          id="text"
-          name="text"
-          label="text"
-          v-model="body.text"
-          placeholder="text">
-        </b-form-input>
-        <b-form-input
-          id="imageUrl"
-          name="imageUrl"
-          label="imageUrl"
-          v-model="body.imageUrl"
-          placeholder="imageUrl">
-        </b-form-input>
-        <b-button @click="createPost()">Send</b-button>
-      </b-form-group>
-    </b-form>
+    <div class="container">
+      <form @submit.prevent="onSubmit" enctype="multipart/form-data" method="post">
+        <div class="form-group">
+          <input type="file" @change="onFileUpload">
+        </div>
+        <div class="form-group">
+          <input type="text" v-model="text" placeholder="text" class="form-control">
+        </div>
+        <div class="form-group">
+          <button class="btn btn-primary btn-block btn-lg">Send</button>
+        </div>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -29,19 +23,32 @@ export default {
   name: 'PostForm',
   data() {
     return {
-      body: {
-        text: '',
-        imageUrl: '',
-        id_user: 1,
-        subject: 1
-      }
+      text: null,
+      file: null,
+      id_user: 1,
+      subject: 1
+
     }
   },
   methods: {
-    createPost() {
-      posts.createPost(this.body)
+    onSubmit() {
+      const formData = new FormData()
+
+      if (this.file) formData.append('file', this.file, this.file.name)
+      if (this.text) formData.append('text', this.text)
+      formData.append('id_user', this.id_user)
+      formData.append('subject', this.subject)
+
+      for (let key of formData.entries()) {
+        console.log(key)
+      }
+
+      posts.createPost(formData)
         .then(() => console.log('Post Created'))
         .catch((err) => console.log(err));
+    },
+    onFileUpload(e) {
+      this.file = e.target.files[0]
     }
   }
 }

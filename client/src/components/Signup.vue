@@ -52,7 +52,9 @@ export default {
         auth.signup(this.body)
           .then(() => this.$router.push('/posts'))
           .catch((err) => console.log(err))
-      } else throw new Error('You must insert all fields')
+      } else {
+        throw new Error('You must insert all fields')
+      }
     }
   }
 }
