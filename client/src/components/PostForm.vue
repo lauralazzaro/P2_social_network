@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="container">
-      <form @submit.prevent="onSubmit" enctype="multipart/form-data" method="post">
+      <form @submit.prevent="onSubmit" enctype="multipart/form-data" method="POST">
         <div class="form-group">
           <input type="file" @change="onFileUpload">
         </div>
@@ -35,9 +35,9 @@ export default {
       const formData = new FormData()
 
       if (this.file) formData.append('file', this.file, this.file.name)
-      if (this.text) formData.append('text', this.text)
-      formData.append('id_user', this.id_user)
-      formData.append('subject', this.subject)
+      if (this.text) formData.append('text', JSON.stringify(this.text))
+      formData.append('id_user', JSON.stringify(this.id_user))
+      formData.append('subject', JSON.stringify(this.subject))
 
       for (let key of formData.entries()) {
         console.log(key)

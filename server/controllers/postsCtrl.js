@@ -23,17 +23,17 @@ exports.getOnePost = (req, res) => {
 exports.createPost = (req, res) => {
     const data = req.body;
 
-    console.log(req.body.subject);
-    console.log(req.body.text);
+    console.log(data);
+    console.log(req.file);
 
-    // post.create({
-    //     id_user: data.id_user,
-    //     text: data.text,
-    //     imageUrl: data.imageUrl,
-    //     id_subject: data.id_subject
-    // })
-    //     .then(() => res.status(200).json({message: 'post created'}))
-    //     .catch((err) => res.status(400).json({err}))
+    post.create({
+        id_user: data.id_user,
+        text: JSON.parse(data.text),
+        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+        id_subject: data.id_subject
+    })
+        .then(() => res.status(200).json({message: 'post created'}))
+        .catch((err) => res.status(400).json({err}))
 };
 
 exports.updatePost = (req, res) => {
