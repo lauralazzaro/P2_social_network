@@ -1,27 +1,28 @@
 <template>
-  <div>
-    <b-form>
-      <b-form-group>
-        <b-form-input
+    <div>
+      <h1> Login </h1>
+      <form @submit.prevent="onSubmit" class="form">
+        <label for="email" class="sr-only"></label>
+        <input
           id="email"
           type="email"
-          name="email"
           label="email"
           v-model="body.email"
-          placeholder="email">
-        </b-form-input>
-        <b-form-input
+          placeholder="email"
+          class="form-control w-25"
+        >
+        <label for="password" class="sr-only"></label>
+        <input
           id="password"
           type="password"
-          name="password"
           label="password"
           v-model="body.password"
-          placeholder="password">
-        </b-form-input>
-        <b-button @click="onSubmit()">Login</b-button>
-      </b-form-group>
-    </b-form>
-  </div>
+          placeholder="password"
+          class="form-control w-25"
+        >
+        <button class="btn btn-secondary mt-auto">Login</button>
+      </form>
+    </div>
 </template>
 
 <script>
@@ -43,8 +44,7 @@ export default {
         .then((res) => {
           if (res.data != null) {
             this.$router.push('/posts')
-          }
-          else {
+          } else {
             throw Error('Username or password incorrect')
           }
           console.log(res.data)

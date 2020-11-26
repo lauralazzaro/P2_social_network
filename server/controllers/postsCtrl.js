@@ -23,13 +23,15 @@ exports.getOnePost = (req, res) => {
 exports.createPost = (req, res) => {
     const data = req.body;
 
+    const imgUrl = req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null;
+    const text = data.text ? JSON.parse(data.text) : null;
     console.log(data);
-    console.log(req.file);
+    console.log(imgUrl);
 
     post.create({
         id_user: data.id_user,
-        text: JSON.parse(data.text),
-        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+        text: text,
+        imageUrl: imgUrl,
         id_subject: data.id_subject
     })
         .then(() => res.status(200).json({message: 'post created'}))
@@ -59,9 +61,12 @@ exports.deletePost = (req, res) => {
     post.findOne({where: {id_post: req.params.id}})
         .then((found) => {
             if (found) {
-                post.destroy({where: {id_post: req.params.id}})
-                    .then(() => res.status(200).json({message: 'post deleted'}))
-                    .catch((err) => res.status(400).json({err}))
+                const filename = found.imageUrl.split('/images/')[1];
+                fs.unlink(`images/${filename}`, () => {
+                    post.destroy({where: {id_post: req.params.id}})
+                        .then(() => res.status(200).json({message: 'post deleted'}))
+                        .catch((err) => res.status(400).json({err}))
+                });
             } else throw ('Post not found');
         })
         .catch((err) => res.status(500).json(err))

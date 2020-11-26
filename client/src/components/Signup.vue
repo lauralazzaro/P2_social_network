@@ -1,34 +1,35 @@
 <template>
   <div>
     <h1>Signup</h1>
-    <b-form>
-      <b-form-group>
-        <b-form-input
-          id="username"
-          name="username"
-          label="username"
-          v-model="body.username"
-          placeholder="username">
-        </b-form-input>
-        <b-form-input
-          id="email"
-          type="email"
-          name="email"
-          label="email"
-          v-model="body.email"
-          placeholder="email">
-        </b-form-input>
-        <b-form-input
-          id="password"
-          type="password"
-          name="password"
-          label="password"
-          v-model="body.password"
-          placeholder="password">
-        </b-form-input>
-        <b-button @click="onSubmit()">Signup</b-button>
-      </b-form-group>
-    </b-form>
+    <form @submit.prevent="onSubmit" class="form">
+      <label for="username" class="sr-only"></label>
+      <input
+        id="username"
+        name="username"
+        label="username"
+        v-model="body.username"
+        placeholder="username"
+      >
+      <label for="email" class="sr-only"></label>
+      <input
+        id="email"
+        type="email"
+        name="email"
+        label="email"
+        v-model="body.email"
+        placeholder="email"
+      >
+      <label for="password" class="sr-only"></label>
+      <input
+        id="password"
+        type="password"
+        name="password"
+        label="password"
+        v-model="body.password"
+        placeholder="password"
+      >
+      <button class="btn btn-secondary mt-auto">Signup</button>
+    </form>
   </div>
 </template>
 

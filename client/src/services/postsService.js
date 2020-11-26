@@ -12,5 +12,8 @@ export default {
   },
   createPost(body) {
     return api().post('posts', body)
+  },
+  deletePost(id){
+    return api().delete(`posts/${id}`)
   }
 }

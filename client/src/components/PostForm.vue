@@ -1,15 +1,30 @@
 <template>
   <div>
+    <h1> Create new post </h1>
     <div class="container">
       <form @submit.prevent="onSubmit" enctype="multipart/form-data" method="POST">
-        <div class="form-group">
-          <input type="file" @change="onFileUpload">
+        <div class="form-group text-left">
+          <label for="file" class="sr-only">Upload image</label>
+          <input
+            name="file"
+            id="file"
+            type="file"
+            @change="onFileUpload"
+          >
+        </div>
+        <div class="form-group text-left">
+          <label for="text" class="sr-only"> Write text for your post </label>
+          <input
+            name="text"
+            id="text"
+            type="text"
+            v-model="text"
+            placeholder="text"
+            class="form-control"
+          >
         </div>
         <div class="form-group">
-          <input type="text" v-model="text" placeholder="text" class="form-control">
-        </div>
-        <div class="form-group">
-          <button class="btn btn-primary btn-block btn-lg">Send</button>
+          <button class="btn btn-secondary" role="button">Send</button>
         </div>
       </form>
     </div>
@@ -23,7 +38,7 @@ export default {
   name: 'PostForm',
   data() {
     return {
-      text: null,
+      text: '',
       file: null,
       id_user: 1,
       subject: 1
