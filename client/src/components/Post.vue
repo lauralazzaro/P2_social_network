@@ -17,6 +17,12 @@
           </b-card>
         </b-col>
       </b-row>
+      <button class="btn btn-danger mt-auto" @click="deletePost">
+        Delete Post
+      </button>
+      <button class="btn btn-primary mt-auto" @click="$router.push(`/posts/${$route.params.id}/modifyPost`)">
+        Modify Post
+      </button>
       <b-row v-for="comment in comments" :key="comment.id_comment">
         <b-col cols="3">
           Comment by {{ comment.user.username }}
@@ -65,6 +71,14 @@ export default {
         .then((res) => {
           this.comments = res.data
         }).catch((err) => console.log(err))
+    },
+    deletePost(){
+      post.deletePost(this.$route.params.id)
+      .then(() => {
+        console.log('Post deleted')
+        this.$router.push('/posts')
+      })
+      .catch((err) => console.log(err))
     }
   },
   mounted() {

@@ -2,11 +2,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const postsRoutes = require('./routes/postsRoutes');
 const usersRoutes = require('./routes/usersRoutes');
-const commentsRoutes = require('./routes/commentsRoutes');
 const connection = require('./database/db.connect');
 const relations = require('./models/relations');
 const path = require('path');
 const cors = require('cors');
+const app = express();
 
 require('dotenv').config();
 
@@ -16,24 +16,20 @@ connection.authenticate()
 
 relations.sync({force: false})
     .then(() => console.log('Tables synchronized'))
-    .catch((err) => console.log('Unable to sync: ' + err));;
-
-const app = express();
+    .catch((err) => console.log('Unable to sync: ' + err));
 
 app.use(cors());
-// parse requests of content-type: application/json
-app.use(bodyParser.json());
-
-// parse requests of content-type: application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
-app.use('/posts', postsRoutes);
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }))
+
 app.use('/auth', usersRoutes);
+app.use('/posts', postsRoutes);
 
 app.use('/', (req, res) => {
-    res.send('Server Created!');
+    res.end('Server Created!');
 });
 
 module.exports = app;

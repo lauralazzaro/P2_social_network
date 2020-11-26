@@ -13,11 +13,12 @@
                 v-if="`${post.imageUrl}` !== 'null'"
                 :src="`${post.imageUrl}`"
                 alt="image"
+                class="img-fluid"
               >
             </div>
-            <router-link :to="`posts/${post.id_post}`">
-              open
-            </router-link>
+            <button @click="$router.push(`posts/${post.id_post}`)" class="btn btn-secondary">
+              View posts
+            </button>
           </b-card>
         </b-col>
       </b-row>

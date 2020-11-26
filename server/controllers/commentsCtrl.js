@@ -35,7 +35,9 @@ exports.updateComment = (req, res) => {
                     {where: {id_comment: req.params.cmt}})
                     .then(() => res.status(200).json({message: 'comment updated'}))
                     .catch((err) => res.status(400).json({err}))
-            } else throw ('Comment not found');
+            } else {
+                throw new Error('Comment not found');
+            }
         })
         .catch((err) => res.status(500).json(err))
 };
@@ -47,7 +49,9 @@ exports.deleteComment = (req, res) => {
                 comment.destroy({where: {id_comment: req.params.cmt}})
                     .then(() => res.status(200).json({message: 'comment deleted'}))
                     .catch((err) => res.status(400).json({err}))
-            } else throw ('Comment not found');
+            } else {
+                throw new Error('Comment not found');
+            }
         })
         .catch((err) => res.status(500).json(err))
 };

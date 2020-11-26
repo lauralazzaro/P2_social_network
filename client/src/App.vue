@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="container-sm">
 <!--    <img src="./assets/logo.png">-->
     <router-view/>
   </div>
@@ -19,5 +19,17 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  max-width: 900px;
 }
+
+input {
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+}
+
+button {
+  margin-top: 30px
+}
+
 </style>
