@@ -20,6 +20,9 @@
       <button class="btn btn-danger mt-auto" @click="deletePost">
         Delete Post
       </button>
+      <button class="btn btn-primary mt-auto" @click="$router.push(`/posts/${$route.params.id}/modifyPost`)">
+        Modify Post
+      </button>
       <b-row v-for="comment in comments" :key="comment.id_comment">
         <b-col cols="3">
           Comment by {{ comment.user.username }}

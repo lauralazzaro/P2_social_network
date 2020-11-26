@@ -5,6 +5,7 @@ import Posts from '../components/Posts'
 import Post from '../components/Post'
 import Signup from '../components/Signup'
 import PostForm from '../components/PostForm'
+import ModifyPost from '../components/ModifyPost';
 
 Vue.use(Router)
 
@@ -29,6 +30,12 @@ export default new Router({
       name: 'Posts',
       component: Posts
     },
+    {
+      path: '/posts/:id/modifyPost',
+      name: 'ModifyPost',
+      component: ModifyPost
+    },
+    ,
     {
       path: '/posts/:id',
       name: 'Post',

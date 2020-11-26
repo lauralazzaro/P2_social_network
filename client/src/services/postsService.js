@@ -15,5 +15,8 @@ export default {
   },
   deletePost(id){
     return api().delete(`posts/${id}`)
+  },
+  modifyPost(id){
+    return api().put(`posts/${id}`)
   }
 }

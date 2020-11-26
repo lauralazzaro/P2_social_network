@@ -59,7 +59,10 @@ export default {
       }
 
       posts.createPost(formData)
-        .then(() => console.log('Post Created'))
+        .then(() => {
+          console.log('Post Created')
+          this.$router.push('/posts')
+        })
         .catch((err) => console.log(err));
     },
     onFileUpload(e) {
