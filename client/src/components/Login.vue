@@ -47,7 +47,6 @@ export default {
           } else {
             throw Error('Username or password incorrect')
           }
-          console.log(res.data)
         }).catch((err) => console.log(err))
     }
   }
