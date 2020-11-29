@@ -29,23 +29,24 @@ exports.login = (req, res) => {
     })
         .then((user) => {
             if (!user) {
-                throw new Error('User not found')
-            } else {
-                bcrypt.compare(req.body.password, user.password)
-                    .then((valid) => {
-                        if (!valid) {
-                            throw new Error('Invalid password')
-                        }
-                        res.status(201).json({
-                            id_user: user.id_user,
-                            token: jwt.sign(
-                                {id_user: user.id_user},
-                                process.env.JWT_TOKEN,
-                                {expiresIn: '24h'}
-                            )
-                        })
-                    })
+                throw new Error('User not found');
             }
+            bcrypt.compare(req.body.password, user.password)
+                .then((valid) => {
+                    if (!valid) {
+                        throw new Error('Invalid password')
+                    }
+
+                    res.status(200).json({
+                        id_user: user.id_user,
+                        token: jwt.sign(
+                            {id_user: user.id_user},
+                            process.env.JWT_TOKEN,
+                            {expiresIn: '24h'}
+                        )
+                    });
+                })
+                .catch((err) => res.status(500).json({err}));
         })
-        .catch((err) => res.status(400).json({err}));
+        .catch((err) => res.status(500).json({err}));
 }

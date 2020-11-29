@@ -1,48 +1,43 @@
 <template>
   <div class="container">
     <h1> Created by: {{ username }}</h1>
-    <b-container>
-      <b-row>
-        <b-col>
-          <b-card>
-            <b-card-text v-if="`${post.text}` !== 'null'">
-              {{ post.text }}
-            </b-card-text>
-            <div v-if="`${post.imageUrl}` !== 'null'">
-              <img
-                :src="`${post.imageUrl}`"
-                alt="image"
-              >
-            </div>
-          </b-card>
-        </b-col>
-      </b-row>
-      <button class="btn btn-danger mt-auto" @click="deletePost">
-        Delete Post
-      </button>
-      <button class="btn btn-primary mt-auto" @click="$router.push(`/posts/${$route.params.id}/modifyPost`)">
-        Modify Post
-      </button>
-      <b-row v-for="comment in comments" :key="comment.id_comment">
-        <b-col cols="3">
+    <div class="row card text-left">
+      <div class="col">
+          <p class="card-text" v-if="`${post.text}` !== 'null'">
+            {{ post.text }}
+          </p>
+          <div v-if="`${post.imageUrl}` !== 'null'">
+            <img
+              :src="`${post.imageUrl}`"
+              alt="image"
+            >
+          </div>
+      </div>
+    </div>
+    <button class="btn btn-danger mt-auto" @click="deletePost">
+      Delete Post
+    </button>
+    <button class="btn btn-primary mt-auto" @click="$router.push(`/posts/${$route.params.id}/modifyPost`)">
+      Modify Post
+    </button>
+    <div class="card row text-left" v-for="comment in comments" :key="comment.id_comment">
+      <div class="col">
+          <p class="card-text" v-if="`${comment.text}` !== 'null'">
+            {{ comment.text }}
+          </p>
+          <div>
+            <img
+              v-if="`${comment.imageUrl}` !== 'null'"
+              :src="`${comment.imageUrl}`"
+              alt="image"
+              class="card-img-right"
+            >
+          </div>
+        </div>
+        <div class="col">
           Comment by {{ comment.user.username }}
-        </b-col>
-        <b-col>
-          <b-card>
-            <b-card-text v-if="`${comment.text}` !== 'null'">
-              {{ comment.text }}
-            </b-card-text>
-            <div >
-              <img
-                v-if="`${comment.imageUrl}` !== 'null'"
-                :src="`${comment.imageUrl}`"
-                alt="image"
-              >
-            </div>
-          </b-card>
-        </b-col>
-      </b-row>
-    </b-container>
+        </div>
+    </div>
   </div>
 </template>
 
@@ -72,13 +67,13 @@ export default {
           this.comments = res.data
         }).catch((err) => console.log(err))
     },
-    deletePost(){
+    deletePost() {
       post.deletePost(this.$route.params.id)
-      .then(() => {
-        console.log('Post deleted')
-        this.$router.push('/posts')
-      })
-      .catch((err) => console.log(err))
+        .then(() => {
+          console.log('Post deleted')
+          this.$router.push('/posts')
+        })
+        .catch((err) => console.log(err))
     }
   },
   mounted() {

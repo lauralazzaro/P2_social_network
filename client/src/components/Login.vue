@@ -43,7 +43,8 @@ export default {
       auth.login(this.body)
         .then((res) => {
           if (res.data != null) {
-            this.$router.push('/posts')
+            localStorage.setItem('token', res.data.token)
+            this.$router.push('/')
           } else {
             throw Error('Username or password incorrect')
           }

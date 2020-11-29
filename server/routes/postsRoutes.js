@@ -8,7 +8,7 @@ router.get('', postsCtrl.getAllPosts);
 router.get('/:id', postsCtrl.getOnePost);
 router.delete('/:id', postsCtrl.deletePost);
 router.post('', multer, postsCtrl.createPost);
-router.put('/:id', postsCtrl.updatePost);
+router.put('/:id', multer, postsCtrl.updatePost);
 
 router.get('/:id/comments', commentsCtrl.getAllComments);
 router.delete('/:id/comments/:cmt', commentsCtrl.deleteComment);

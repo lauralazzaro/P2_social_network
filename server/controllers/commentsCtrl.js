@@ -3,7 +3,7 @@ const fs = require('fs');
 
 exports.getAllComments = (req, res) => {
     comment.findAll({
-        include: ['post','user'],
+        include: ['user'],
         where: {id_post: req.params.id}
     })
         .then((comments) => res.status(200).json(comments))

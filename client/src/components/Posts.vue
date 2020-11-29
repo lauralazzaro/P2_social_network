@@ -1,13 +1,12 @@
 <template>
   <div class="container">
     <h1> Posts page</h1>
-    <b-container>
-      <b-row v-for="post in allPosts" :key="post.id_post">
-        <b-col>
-          <b-card>
-            <b-card-text v-if="`${post.text}` !== 'null'">
+      <div class="row" v-for="post in allPosts" :key="post.id_post">
+        <div class="col">
+          <div class="card-body">
+            <div class="card-text" v-if="`${post.text}` !== 'null'">
               {{ post.text }} <i>created by</i> <b>{{ post.user.username }}</b>
-            </b-card-text>
+            </div>
             <div>
               <img
                 v-if="`${post.imageUrl}` !== 'null'"
@@ -19,10 +18,9 @@
             <button @click="$router.push(`posts/${post.id_post}`)" class="btn btn-secondary">
               View posts
             </button>
-          </b-card>
-        </b-col>
-      </b-row>
-    </b-container>
+          </div>
+        </div>
+      </div>
   </div>
 </template>
 
@@ -46,7 +44,12 @@ export default {
     }
   },
   mounted() {
-    return this.getPosts()
+    if(!localStorage.getItem('token')) {
+      this.$router.push('/login')
+    }
+    else {
+      return this.getPosts()
+    }
   }
 }
 </script>
