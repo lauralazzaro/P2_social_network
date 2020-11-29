@@ -77,8 +77,12 @@ export default {
     }
   },
   mounted() {
-    this.getPost()
-    this.getComment()
+      if(!localStorage.getItem('token')) {
+        this.$router.push('/login')
+      } else {
+        this.getPost()
+        this.getComment()
+      }
   }
 }
 

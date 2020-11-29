@@ -1,34 +1,34 @@
 <template>
-    <div>
-      <h1> Modify post: {{ $route.params.id }} </h1>
-      <div class="container">
-        <form @submit.prevent="onSubmit" enctype="multipart/form-data" method="POST">
-          <div class="form-group text-left">
-            <label for="file" class="sr-only">Upload image</label>
-            <input
-              name="file"
-              id="file"
-              type="file"
-              @change="onFileUpload"
-            >
-          </div>
-          <div class="form-group text-left">
-            <label for="text" class="sr-only"> Write text for your post </label>
-            <input
-              name="text"
-              id="text"
-              type="text"
-              v-model="text"
-              :placeholder="this.text"
-              class="form-control"
-            >
-          </div>
-          <div class="form-group">
-            <button class="btn btn-secondary" role="button">Send</button>
-          </div>
-        </form>
-      </div>
+  <div>
+    <h1> Modify post: {{ $route.params.id }} </h1>
+    <div class="container">
+      <form @submit.prevent="onSubmit" enctype="multipart/form-data" method="POST">
+        <div class="form-group text-left">
+          <label for="file" class="sr-only">Upload image</label>
+          <input
+            name="file"
+            id="file"
+            type="file"
+            @change="onFileUpload"
+          >
+        </div>
+        <div class="form-group text-left">
+          <label for="text" class="sr-only"> Write text for your post </label>
+          <input
+            name="text"
+            id="text"
+            type="text"
+            v-model="text"
+            :placeholder="this.text"
+            class="form-control"
+          >
+        </div>
+        <div class="form-group">
+          <button class="btn btn-secondary" role="button">Send</button>
+        </div>
+      </form>
     </div>
+  </div>
 </template>
 
 <script>
@@ -70,15 +70,19 @@ export default {
     }
   },
   mounted() {
-    posts.getOnePost(this.$route.params.id)
-      .then((res) => {
-        console.log(res)
-        this.text = res.data.text
-        this.file = res.data.imageUrl
-        this.id_user = 1
-        this.subject = 1
-      })
-    .catch((err) => console.log(err))
+    if (!localStorage.getItem('token')) {
+      this.$router.push('/login')
+    } else {
+      posts.getOnePost(this.$route.params.id)
+        .then((res) => {
+          console.log(res)
+          this.text = res.data.text
+          this.file = res.data.imageUrl
+          this.id_user = 1
+          this.subject = 1
+        })
+        .catch((err) => console.log(err))
+    }
   }
 }
 </script>

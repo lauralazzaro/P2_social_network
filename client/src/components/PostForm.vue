@@ -68,6 +68,11 @@ export default {
     onFileUpload(e) {
       this.file = e.target.files[0]
     }
+  },
+  mounted() {
+    if (!localStorage.getItem('token')) {
+      this.$router.push('/login')
+    }
   }
 }
 </script>
