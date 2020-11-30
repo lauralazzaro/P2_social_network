@@ -50,4 +50,8 @@ button {
   margin-top: 30px
 }
 
+body {
+  padding-top: 65px;
+}
+
 </style>

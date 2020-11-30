@@ -16,10 +16,10 @@
     </div>
     <button
       v-if="`${owner}` === 'true'"
-      class="btn btn-danger mt-auto" @click="deletePost">
+      class="btn btn-danger" @click="deletePost">
       Delete Post
     </button>
-    <button class="btn btn-primary mt-auto" @click="$router.push(`/posts/${$route.params.id}/modifyPost`)">
+    <button class="btn btn-primary" @click="$router.push(`/posts/${$route.params.id}/modifyPost`)">
       Modify Post
     </button>
     <div class="card row text-left" v-for="comment in comments" :key="comment.id_comment">
@@ -62,7 +62,6 @@ export default {
         .then((res) => {
           this.post = res.data
           this.username = res.data.user.username
-          console.log(this.post.id_user)
           if(parseInt(localStorage.getItem('id_user')) === this.post.id_user){
             this.owner = true;
           }
@@ -99,5 +98,9 @@ export default {
 <style scoped>
 img {
   max-width: 20rem;
+}
+
+button{
+  margin-top: 20px;
 }
 </style>

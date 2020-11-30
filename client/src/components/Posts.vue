@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h1> Posts page</h1>
-      <div class="row" v-for="post in allPosts" :key="post.id_post">
+      <div class="row border-secondary" v-for="post in allPosts" :key="post.id_post">
         <div class="col">
           <div class="card-body">
             <div class="card-text" v-if="`${post.text}` !== 'null'">
@@ -57,6 +57,10 @@ export default {
 <style scoped>
 img {
   max-width: 30rem;
+}
+
+.row {
+  border-bottom: 1px solid #000;
 }
 
 </style>
