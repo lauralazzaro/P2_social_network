@@ -23,10 +23,6 @@ export default {
       {
         text: 'Create Post',
         path: '/posts/createPost'
-      },
-      {
-        text: 'Logout',
-        path: '/'
       }
     ]
   })
