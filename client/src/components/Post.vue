@@ -14,7 +14,9 @@
           </div>
       </div>
     </div>
-    <button class="btn btn-danger mt-auto" @click="deletePost">
+    <button
+      v-if="`${owner}` === 'true'"
+      class="btn btn-danger mt-auto" @click="deletePost">
       Delete Post
     </button>
     <button class="btn btn-primary mt-auto" @click="$router.push(`/posts/${$route.params.id}/modifyPost`)">
@@ -50,7 +52,8 @@ export default {
     return {
       post: {},
       username: '',
-      comments: {}
+      comments: {},
+      owner: false
     }
   },
   methods: {
@@ -59,6 +62,10 @@ export default {
         .then((res) => {
           this.post = res.data
           this.username = res.data.user.username
+          console.log(this.post.id_user)
+          if(parseInt(localStorage.getItem('id_user')) === this.post.id_user){
+            this.owner = true;
+          }
         }).catch((err) => console.log(err))
     },
     getComment() {

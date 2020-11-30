@@ -44,6 +44,7 @@ export default {
         .then((res) => {
           if (res.data != null) {
             localStorage.setItem('token', res.data.token)
+            localStorage.setItem('id_user', res.data.id_user)
             this.$router.push('/')
           } else {
             throw Error('Username or password incorrect')

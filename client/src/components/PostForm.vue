@@ -40,7 +40,7 @@ export default {
     return {
       text: '',
       file: null,
-      id_user: 1,
+      id_user: '',
       subject: 1
 
     }
@@ -51,7 +51,7 @@ export default {
 
       if (this.file) formData.append('file', this.file, this.file.name)
       if (this.text) formData.append('text', JSON.stringify(this.text))
-      formData.append('id_user', JSON.stringify(this.id_user))
+      formData.append('id_user', this.id_user)
       formData.append('subject', JSON.stringify(this.subject))
 
       for (let key of formData.entries()) {
@@ -72,6 +72,9 @@ export default {
   mounted() {
     if (!localStorage.getItem('token')) {
       this.$router.push('/login')
+    }
+    else {
+      this.id_user = localStorage.getItem('id_user')
     }
   }
 }
