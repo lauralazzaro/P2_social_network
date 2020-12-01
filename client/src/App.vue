@@ -3,6 +3,7 @@
     <Navbar
     :nav-links="navLinks"
     :image-path="require('./assets/icon.png')"
+    :key="$route.fullPath"
     />
     <router-view/>
   </div>
