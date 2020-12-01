@@ -1,7 +1,7 @@
 <template>
     <div>
       <h1> Login </h1>
-      <form @submit.prevent="onSubmit" class="form">
+      <form @submit.prevent="onSubmit" class="form text-left">
         <label for="email" class="sr-only"></label>
         <input
           id="email"
@@ -20,7 +20,7 @@
           placeholder="password"
           class="form-control w-25"
         >
-        <button class="btn btn-secondary mt-auto">Login</button>
+        <button class="btn btn-secondary">Login</button>
       </form>
     </div>
 </template>

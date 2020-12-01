@@ -36,8 +36,8 @@ export default {
       }
     })
   },
-  modifyPost(id) {
-    return api().put(`posts/${id}`, {
+  modifyPost(id,body) {
+    return api().put(`posts/${id}`, body, {
       headers: {
         'Authorization': 'Bearer ' + localStorage.getItem('token')
       }

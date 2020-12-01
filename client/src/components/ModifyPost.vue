@@ -2,7 +2,7 @@
   <div>
     <h1> Modify post: {{ $route.params.id }} </h1>
     <div class="container">
-      <form @submit.prevent="onSubmit" enctype="multipart/form-data" method="POST">
+      <form @submit.prevent="onSubmit" enctype="multipart/form-data">
         <div class="form-group text-left">
           <label for="file" class="sr-only">Upload image</label>
           <input
@@ -40,25 +40,27 @@ export default {
     return {
       text: '',
       file: null,
-      id_user: 1,
+      id_user: '',
       subject: 1
 
     }
   },
   methods: {
     onSubmit() {
+      console.log(this.id_user)
+
       const formData = new FormData()
 
       if (this.file) formData.append('file', this.file, this.file.name)
-      if (this.text) formData.append('text', JSON.stringify(this.text))
-      formData.append('id_user', JSON.stringify(this.id_user))
+      if (this.text) formData.append('text', this.text)
+      formData.append('id_user', this.id_user)
       formData.append('subject', JSON.stringify(this.subject))
 
       for (let key of formData.entries()) {
         console.log(key)
       }
 
-      posts.createPost(formData)
+      posts.modifyPost(`${this.$route.params.id}`, formData)
         .then(() => {
           console.log('Post modified')
           this.$router.push(`/posts/${this.$route.params.id}`)
@@ -73,12 +75,12 @@ export default {
     if (!localStorage.getItem('token')) {
       this.$router.push('/login')
     } else {
+      this.id_user = localStorage.getItem('id_user')
       posts.getOnePost(this.$route.params.id)
         .then((res) => {
           console.log(res)
           this.text = res.data.text
           this.file = res.data.imageUrl
-          this.id_user = 1
           this.subject = 1
         })
         .catch((err) => console.log(err))

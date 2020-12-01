@@ -52,9 +52,9 @@
           @mouseenter="$event.currentTarget.style.background = hoverBackground || '#AFAFB2' "
           @mouseleave="$event.currentTarget.style.background = background || '#122542' "
         >
-          <a
+          <router-link
             class="nav-link"
-            href="/" @click.prevent="logout">Login</a>
+            to="Login">Login</router-link>
         </li>
         <li
           v-if="`${isLogged}` === 'false'"
@@ -62,9 +62,9 @@
           @mouseenter="$event.currentTarget.style.background = hoverBackground || '#AFAFB2' "
           @mouseleave="$event.currentTarget.style.background = background || '#122542' "
         >
-          <a
+          <router-link
             class="nav-link"
-            href="/" @click.prevent="logout">Signup</a>
+            to="Signup">Signup</router-link>
         </li>
       </ul>
     </div>

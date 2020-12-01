@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Signup</h1>
-    <form @submit.prevent="onSubmit" class="form">
+    <form @submit.prevent="onSubmit" class="form text-left">
       <label for="username" class="sr-only"></label>
       <input
         id="username"
@@ -9,6 +9,7 @@
         label="username"
         v-model="body.username"
         placeholder="username"
+        class="form-control w-25"
       >
       <label for="email" class="sr-only"></label>
       <input
@@ -18,6 +19,7 @@
         label="email"
         v-model="body.email"
         placeholder="email"
+        class="form-control w-25"
       >
       <label for="password" class="sr-only"></label>
       <input
@@ -27,6 +29,7 @@
         label="password"
         v-model="body.password"
         placeholder="password"
+        class="form-control w-25"
       >
       <button class="btn btn-secondary mt-auto">Signup</button>
     </form>
