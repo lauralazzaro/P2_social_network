@@ -1,6 +1,12 @@
 <template>
   <div class="container">
-    <h1> Posts page</h1>
+    <figure>
+      <img
+        src="../assets/icon-left-font-monochrome-black.svg"
+        alt="image groupomania"
+        style="height: 15rem"
+      >
+    </figure>
       <div class="row border-secondary" v-for="post in allPosts" :key="post.id_post">
         <div class="col">
           <div class="card-body">
@@ -62,5 +68,6 @@ img {
 .row {
   border-bottom: 1px solid #000;
 }
+
 
 </style>

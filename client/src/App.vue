@@ -47,11 +47,20 @@ input {
 }
 
 button {
-  margin-top: 30px
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
 body {
   padding-top: 65px;
+  background-color: rgba(175, 175, 178, 0.6);
+}
+
+.container {
+  background-color: #FFFFFF;
+  border-radius: 5px;
+  padding: 15px;
+  color: #122542;
 }
 
 </style>

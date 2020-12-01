@@ -19,7 +19,7 @@
             id="text"
             type="text"
             v-model="text"
-            placeholder="text"
+            placeholder="Insert text for post"
             class="form-control"
           >
         </div>

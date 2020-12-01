@@ -1,44 +1,50 @@
 <template>
   <div class="container">
-    <h1> Created by: {{ username }}</h1>
     <div class="row card text-left">
       <div class="col">
-          <p class="card-text" v-if="`${post.text}` !== 'null'">
-            {{ post.text }}
-          </p>
-          <div v-if="`${post.imageUrl}` !== 'null'">
-            <img
-              :src="`${post.imageUrl}`"
-              alt="image"
-            >
-          </div>
+        <h2 class="card-text" v-if="`${post.text}` !== 'null'">
+          {{ post.text }}
+        </h2>
+        <div v-if="`${post.imageUrl}` !== 'null'">
+          <img
+            :src="`${post.imageUrl}`"
+            alt="image"
+          >
+        </div>
       </div>
     </div>
-    <button
-      v-if="`${owner}` === 'true'"
-      class="btn btn-danger" @click="deletePost">
-      Delete Post
-    </button>
-    <button class="btn btn-primary" @click="$router.push(`/posts/${$route.params.id}/modifyPost`)">
-      Modify Post
-    </button>
-    <div class="card row text-left" v-for="comment in comments" :key="comment.id_comment">
+    <div
+      v-if="`${owner}` === 'true'">
+      <button
+        class="btn btn-danger" @click="deletePost">
+        Delete Post
+      </button>
+      <button class="btn btn-primary" @click="$router.push(`/posts/${$route.params.id}/modifyPost`)">
+        Modify Post
+      </button>
+    </div>
+    <div
+      class="card row text-left"
+      v-for="comment in comments"
+      :key="comment.id_comment"
+      style="margin-bottom: 30px; margin-top: 30px"
+    >
       <div class="col">
-          <p class="card-text" v-if="`${comment.text}` !== 'null'">
-            {{ comment.text }}
-          </p>
-          <div>
-            <img
-              v-if="`${comment.imageUrl}` !== 'null'"
-              :src="`${comment.imageUrl}`"
-              alt="image"
-              class="card-img-right"
-            >
-          </div>
+        <p class="card-text" v-if="`${comment.text}` !== 'null'">
+          {{ comment.text }}
+        </p>
+        <div>
+          <img
+            v-if="`${comment.imageUrl}` !== 'null'"
+            :src="`${comment.imageUrl}`"
+            alt="image"
+            class="card-img-right"
+          >
         </div>
-        <div class="col">
-          Comment by {{ comment.user.username }}
-        </div>
+      </div>
+      <div class="col">
+        Comment by {{ comment.user.username }}
+      </div>
     </div>
   </div>
 </template>
@@ -62,7 +68,7 @@ export default {
         .then((res) => {
           this.post = res.data
           this.username = res.data.user.username
-          if(parseInt(localStorage.getItem('id_user')) === this.post.id_user){
+          if (parseInt(localStorage.getItem('id_user')) === this.post.id_user) {
             this.owner = true;
           }
         }).catch((err) => console.log(err))
@@ -83,12 +89,12 @@ export default {
     }
   },
   mounted() {
-      if(!localStorage.getItem('token')) {
-        this.$router.push('/login')
-      } else {
-        this.getPost()
-        this.getComment()
-      }
+    if (!localStorage.getItem('token')) {
+      this.$router.push('/login')
+    } else {
+      this.getPost()
+      this.getComment()
+    }
   }
 }
 
@@ -100,7 +106,7 @@ img {
   max-width: 20rem;
 }
 
-button{
+button {
   margin-top: 20px;
 }
 </style>

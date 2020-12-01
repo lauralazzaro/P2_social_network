@@ -1,10 +1,10 @@
 <template>
   <nav
-    :style="{background: background || '#333'}"
+    :style="{background: background || '#122542'}"
     class="navbar fixed-top navbar-expand-lg ">
     <div class="nav navbar-nav mr-auto">
       <ul
-        :style="{background: background || '#333'}"
+        :style="{background: background || '#122542'}"
       >
         <figure class="image-logo">
           <img
@@ -15,11 +15,12 @@
 
         </figure>
         <li
+          v-if="`${isLogged}` === 'true'"
           class="nav-item"
           v-for="(link, index) in navLinks"
           :key="index"
-          @mouseenter="$event.currentTarget.style.background = hoverBackground || '#999' "
-          @mouseleave="$event.currentTarget.style.background = background || '#333' "
+          @mouseenter="$event.currentTarget.style.background = hoverBackground || '#AFAFB2' "
+          @mouseleave="$event.currentTarget.style.background = background || '#122542' "
         >
           <router-link
             class="nav-link"
@@ -30,31 +31,66 @@
           </router-link>
         </li>
       </ul>
-     </div>
+    </div>
     <div class="nav navbar-nav ml-auto">
       <ul
-        :style="{background: background || '#333'}"
+        :style="{background: background || '#122542'}"
       >
-         <li
+        <li
+          v-if="`${isLogged}` === 'true'"
           class="nav-item"
-          @mouseenter="$event.currentTarget.style.background = hoverBackground || '#999' "
-          @mouseleave="$event.currentTarget.style.background = background || '#333' "
+          @mouseenter="$event.currentTarget.style.background = hoverBackground || '#AFAFB2' "
+          @mouseleave="$event.currentTarget.style.background = background || '#122542' "
         >
-           <a href="/" @click.prevent="logout">Logout</a>
+          <a
+            class="nav-link"
+            href="/" @click.prevent="logout">Logout</a>
+        </li>
+        <li
+          v-if="`${isLogged}` === 'false'"
+          class="nav-item"
+          @mouseenter="$event.currentTarget.style.background = hoverBackground || '#AFAFB2' "
+          @mouseleave="$event.currentTarget.style.background = background || '#122542' "
+        >
+          <a
+            class="nav-link"
+            href="/" @click.prevent="logout">Login</a>
+        </li>
+        <li
+          v-if="`${isLogged}` === 'false'"
+          class="nav-item"
+          @mouseenter="$event.currentTarget.style.background = hoverBackground || '#AFAFB2' "
+          @mouseleave="$event.currentTarget.style.background = background || '#122542' "
+        >
+          <a
+            class="nav-link"
+            href="/" @click.prevent="logout">Signup</a>
         </li>
       </ul>
-     </div>
+    </div>
   </nav>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      isLogged: 'false'
+    }
+  },
   name: 'Navbar',
   props: ['navLinks', 'background', 'linkColor', 'hoverBackground', 'imagePath'],
   methods: {
     logout() {
       localStorage.clear()
+      this.isLogged = 'false'
       this.$router.push('/login')
+
+    }
+  },
+  mounted() {
+    if (localStorage.getItem('isLogged') === 'true') {
+      this.isLogged = 'true'
     }
   }
 }
@@ -77,6 +113,8 @@ ul {
 
 li {
   padding: 10px 20px;
+  border-radius: 5px;
+  margin-left: 15px;
 }
 
 a {
