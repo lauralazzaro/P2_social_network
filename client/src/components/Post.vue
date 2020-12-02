@@ -46,11 +46,41 @@
         Comment by {{ comment.user.username }}
       </div>
     </div>
+    <div>
+      <h4> Insert Comment </h4>
+      <div class="container">
+        <form @submit.prevent="onSubmitComment" enctype="multipart/form-data" method="POST">
+          <div class="form-group text-left">
+            <label for="file" class="sr-only">Upload image</label>
+            <input
+              name="file"
+              id="file"
+              type="file"
+              @change="onFileUpload"
+            >
+          </div>
+          <div class="form-group text-left">
+            <label for="text" class="sr-only"> Write text for your comment </label>
+            <input
+              name="text"
+              id="text"
+              type="text"
+              v-model="text"
+              placeholder="Insert text for comment"
+              class="form-control"
+            >
+          </div>
+          <div class="form-group">
+            <button class="btn btn-secondary" role="button">Send</button>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import post from '../services/postsService'
+import posts from '../services/postsService'
 
 export default {
   name: 'Post',
@@ -59,12 +89,18 @@ export default {
       post: {},
       username: '',
       comments: {},
-      owner: false
+      owner: false,
+      file: '',
+      text: '',
+      subject: 1,
+      id_post: null,
+      id_user: '',
+      newComment: {}
     }
   },
   methods: {
     getPost() {
-      post.getOnePost(this.$route.params.id)
+      posts.getOnePost(this.$route.params.id)
         .then((res) => {
           this.post = res.data
           this.username = res.data.user.username
@@ -74,19 +110,50 @@ export default {
         }).catch((err) => console.log(err))
     },
     getComment() {
-      post.getAllComments(this.$route.params.id)
+      posts.getAllComments(this.$route.params.id)
         .then((res) => {
           this.comments = res.data
         }).catch((err) => console.log(err))
     },
     deletePost() {
-      post.deletePost(this.$route.params.id)
+      posts.deletePost(this.$route.params.id)
         .then(() => {
           console.log('Post deleted')
           this.$router.push('/posts')
         })
         .catch((err) => console.log(err))
-    }
+    },
+    onFileUpload(e) {
+      this.file = e.target.files[0]
+    },
+    onSubmitComment() {
+      // const formData = new FormData()
+
+      // if (this.file) formData.append('file', this.file, this.file.name)
+      // if (this.text) formData.append('text', this.text)
+      // formData.append('id_post', this.id_post)
+      // formData.append('id_user', this.id_user)
+      // formData.append('subject', JSON.stringify(this.subject))
+
+      // for (let key of formData.entries()) {
+      //   console.log(key)
+      // }
+
+      this.newComment.text = this.text
+      this.newComment.subject = 1
+      this.newComment.id_post = this.id_post
+      this.newComment.id_user = parseInt(this.id_user)
+
+      console.log(this.newComment)
+
+      posts.createComment(this.newComment)
+        .then(() => {
+          location.reload()
+        })
+        .catch((err) => console.log(err))
+
+      console.log('comment sent')
+    },
   },
   mounted() {
     if (!localStorage.getItem('token')) {
@@ -94,6 +161,8 @@ export default {
     } else {
       this.getPost()
       this.getComment()
+      this.id_user = localStorage.getItem('id_user')
+      this.id_post = `${this.$route.params.id}`
     }
   }
 }

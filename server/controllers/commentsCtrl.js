@@ -4,22 +4,30 @@ const fs = require('fs');
 exports.getAllComments = (req, res) => {
     comment.findAll({
         include: ['user'],
-        where: {id_post: req.params.id}
+        where: {id_post: req.params.id},
+        order: [
+            ['createdAt', 'DESC']
+        ]
     })
         .then((comments) => res.status(200).json(comments))
         .catch((err) => res.status(400).json({err}))
 };
 
 exports.createComment = (req, res) => {
-    const data = req.body.comment;
+    const data = req.body;
+    const imgUrl = req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null;
+    const text = data.text ? data.text : null;
+
     comment.create({
         id_user: data.id_user,
-        id_post: req.params.id,
-        text: data.text,
-        imageUrl: data.imageUrl
+        id_post: data.id_post,
+        text: text,
+        imageUrl: imgUrl
     })
         .then(() => res.status(200).json({message: 'comment created'}))
         .catch((err) => res.status(400).json({err}))
+
+    console.log(data);
 };
 
 exports.updateComment = (req, res) => {

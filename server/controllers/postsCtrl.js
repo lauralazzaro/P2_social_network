@@ -23,11 +23,8 @@ exports.getOnePost = (req, res) => {
 
 exports.createPost = (req, res) => {
     const data = req.body;
-
     const imgUrl = req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null;
     const text = data.text ? JSON.parse(data.text) : null;
-    console.log(data);
-    console.log(imgUrl);
 
     post.create({
         id_user: data.id_user,

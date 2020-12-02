@@ -29,6 +29,13 @@ export default {
       }
     })
   },
+  createComment(body) {
+    return api().post('posts/createComment', body, {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      }
+    })
+  },
   deletePost(id) {
     return api().delete(`posts/${id}`, {
       headers: {
@@ -36,7 +43,7 @@ export default {
       }
     })
   },
-  modifyPost(id,body) {
+  modifyPost(id, body) {
     return api().put(`posts/${id}`, body, {
       headers: {
         'Authorization': 'Bearer ' + localStorage.getItem('token')
