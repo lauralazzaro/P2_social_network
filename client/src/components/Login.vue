@@ -1,7 +1,7 @@
 <template>
     <div>
       <h1> Login </h1>
-      <form @submit.prevent="onSubmit" class="form">
+      <form @submit.prevent="onSubmit" class="form text-left">
         <label for="email" class="sr-only"></label>
         <input
           id="email"
@@ -20,13 +20,14 @@
           placeholder="password"
           class="form-control w-25"
         >
-        <button class="btn btn-secondary mt-auto">Login</button>
+        <button class="btn btn-secondary">Login</button>
       </form>
     </div>
 </template>
 
 <script>
 import auth from '../services/authService'
+
 
 export default {
   name: 'login',
@@ -43,11 +44,13 @@ export default {
       auth.login(this.body)
         .then((res) => {
           if (res.data != null) {
-            this.$router.push('/posts')
+            localStorage.setItem('token', res.data.token)
+            localStorage.setItem('id_user', res.data.id_user)
+            localStorage.setItem('isLogged', 'true')
+            this.$router.push('/')
           } else {
             throw Error('Username or password incorrect')
           }
-          console.log(res.data)
         }).catch((err) => console.log(err))
     }
   }

@@ -13,37 +13,55 @@ export default new Router({
   routes: [
     {
       path: '/',
+      name: 'Posts',
+      component: Posts,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/login',
       name: 'Login',
-      component: Login
-    },{
+      component: Login,
+      meta: {
+        requiresAuth: false
+      }
+    }, {
       path: '/signup',
       name: 'Signup',
-      component: Signup
+      component: Signup,
+      meta: {
+        requiresAuth: false
+      }
     },
     {
       path: '/posts/createPost',
       name: 'PostForm',
-      component: PostForm
-    },
-    {
-      path: '/posts',
-      name: 'Posts',
-      component: Posts
+      component: PostForm,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/posts/:id/modifyPost',
       name: 'ModifyPost',
-      component: ModifyPost
+      component: ModifyPost,
+      meta: {
+        requiresAuth: true
+      }
     },
     ,
     {
       path: '/posts/:id',
       name: 'Post',
-      component: Post
+      component: Post,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '*',
-      redirect: '/posts'
+      redirect: '/'
     }
   ]
 })

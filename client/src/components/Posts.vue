@@ -1,28 +1,33 @@
 <template>
   <div class="container">
-    <h1> Posts page</h1>
-    <b-container>
-      <b-row v-for="post in allPosts" :key="post.id_post">
-        <b-col>
-          <b-card>
-            <b-card-text v-if="`${post.text}` !== 'null'">
+    <figure>
+      <img
+        src="../assets/icon-left-font-monochrome-black.svg"
+        alt="image groupomania"
+        style="height: 15rem"
+      >
+    </figure>
+      <div class="row border-secondary text-justify" v-for="post in allPosts" :key="post.id_post">
+        <div class="col">
+          <div class="card-body">
+            <div class="card-text" v-if="`${post.text}` !== 'null'">
               {{ post.text }} <i>created by</i> <b>{{ post.user.username }}</b>
-            </b-card-text>
+            </div>
             <div>
               <img
                 v-if="`${post.imageUrl}` !== 'null'"
                 :src="`${post.imageUrl}`"
                 alt="image"
                 class="img-fluid"
+                style="max-width: 200px"
               >
             </div>
             <button @click="$router.push(`posts/${post.id_post}`)" class="btn btn-secondary">
               View posts
             </button>
-          </b-card>
-        </b-col>
-      </b-row>
-    </b-container>
+          </div>
+        </div>
+      </div>
   </div>
 </template>
 
@@ -46,7 +51,12 @@ export default {
     }
   },
   mounted() {
-    return this.getPosts()
+    if(!localStorage.getItem('token')) {
+      this.$router.push('/login')
+    }
+    else {
+      return this.getPosts()
+    }
   }
 }
 </script>
@@ -55,5 +65,10 @@ export default {
 img {
   max-width: 30rem;
 }
+
+.row {
+  border-bottom: 1px solid #000;
+}
+
 
 </style>
