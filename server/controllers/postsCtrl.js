@@ -53,17 +53,21 @@ exports.updatePost = (req, res) => {
 };
 
 exports.deletePost = (req, res) => {
+    console.log(req.params.id);
+
     post.findOne({where: {id_post: req.params.id}})
         .then((found) => {
-            if (found) {
+            if (found.imageUrl !== 'null') {
                 const filename = found.imageUrl.split('/images/')[1];
-                fs.unlink(`images/${filename}`, () => {
-                    post.destroy({where: {id_post: req.params.id}})
-                        .then(() => res.status(200).json({message: 'post deleted'}))
-                        .catch((err) => res.status(400).json({err}))
+                fs.unlink(`images/${filename}`, (err) => {
+                    if (err) throw err;
                 });
             } else throw ('Post not found');
         })
         .catch((err) => res.status(500).json(err))
+
+    post.destroy({where: {id_post: req.params.id}})
+        .then(() => res.status(200).json({message: 'post deleted'}))
+        .catch((err) => res.status(400).json({err}))
 };
 
