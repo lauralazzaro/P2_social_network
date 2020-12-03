@@ -54,7 +54,19 @@ export default {
     onSubmit() {
       if (this.body.email !== '' && this.body.username !== '' && this.body.password !== '') {
         auth.signup(this.body)
-          .then(() => this.$router.push('/posts'))
+          .then(() => {
+            auth.login(this.body)
+              .then((res) => {
+                if (res.data != null) {
+                  localStorage.setItem('token', res.data.token)
+                  localStorage.setItem('id_user', res.data.id_user)
+                  localStorage.setItem('isLogged', 'true')
+                  this.$router.push('/')
+                } else {
+                  throw Error('Username or password incorrect')
+                }
+              }).catch((err) => console.log(err))
+          })
           .catch((err) => console.log(err))
       } else {
         throw new Error('You must insert all fields')
