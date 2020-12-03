@@ -23,17 +23,18 @@
         Modify Post
       </button>
     </div>
-    <div>
-      <h4> Insert Comment </h4>
-      <div class="container">
+    <div style="margin-top: 20px;" class="container text-justify">
+      <h5 style="font-weight: bold"> Insert Comment </h5>
+      <div>
         <form @submit.prevent="onSubmitComment" enctype="multipart/form-data" method="POST">
-          <div class="form-group text-left">
-            <label for="file" class="sr-only">Upload image</label>
+          <div class="custom-file">
+            <label for="file" class="custom-file-label">Upload image</label>
             <input
               name="file"
               id="file"
               type="file"
               @change="onFileUpload"
+              class="custom-file-input"
             >
           </div>
           <div class="form-group text-left">
@@ -48,7 +49,7 @@
             >
           </div>
           <div class="form-group">
-            <button class="btn btn-secondary" role="button">Send</button>
+            <button class="btn btn-secondary" role="button">Send Comment</button>
           </div>
         </form>
       </div>
@@ -138,7 +139,7 @@ export default {
       posts.deleteComment(parseInt(id))
         .then(() => {
           console.log('Comment deleted')
-          //this.$router.push('/posts')
+          location.reload()
         })
         .catch((err) => console.log(err))
     },
@@ -146,26 +147,19 @@ export default {
       this.file = e.target.files[0]
     },
     onSubmitComment() {
-      // const formData = new FormData()
+      const formData = new FormData()
 
-      // if (this.file) formData.append('file', this.file, this.file.name)
-      // if (this.text) formData.append('text', this.text)
-      // formData.append('id_post', this.id_post)
-      // formData.append('id_user', this.id_user)
-      // formData.append('subject', JSON.stringify(this.subject))
+      if (this.file) formData.append('file', this.file, this.file.name)
+      if (this.text) formData.append('text', this.text)
+      formData.append('id_post', this.id_post)
+      formData.append('id_user', this.id_user)
+      formData.append('subject', JSON.stringify(this.subject))
 
-      // for (let key of formData.entries()) {
-      //   console.log(key)
-      // }
+      for (let key of formData.entries()) {
+        console.log(key)
+      }
 
-      this.newComment.text = this.text
-      this.newComment.subject = 1
-      this.newComment.id_post = this.id_post
-      this.newComment.id_user = parseInt(this.id_user)
-
-      console.log(this.newComment)
-
-      posts.createComment(this.newComment)
+      posts.createComment(formData)
         .then(() => {
           location.reload()
         })
@@ -180,7 +174,7 @@ export default {
     } else {
       this.getPost()
       this.getComment()
-      this.id_user = localStorage.getItem('id_user')
+      this.id_user = parseInt(localStorage.getItem('id_user'))
       this.id_post = `${this.$route.params.id}`
     }
   }

@@ -26,8 +26,6 @@ exports.createComment = (req, res) => {
     })
         .then(() => res.status(200).json({message: 'comment created'}))
         .catch((err) => res.status(400).json({err}))
-
-    console.log(data);
 };
 
 exports.updateComment = (req, res) => {

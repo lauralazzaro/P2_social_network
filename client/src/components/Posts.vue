@@ -7,7 +7,7 @@
         style="height: 15rem"
       >
     </figure>
-      <div class="row border-secondary" v-for="post in allPosts" :key="post.id_post">
+      <div class="row border-secondary text-justify" v-for="post in allPosts" :key="post.id_post">
         <div class="col">
           <div class="card-body">
             <div class="card-text" v-if="`${post.text}` !== 'null'">
@@ -19,6 +19,7 @@
                 :src="`${post.imageUrl}`"
                 alt="image"
                 class="img-fluid"
+                style="max-width: 200px"
               >
             </div>
             <button @click="$router.push(`posts/${post.id_post}`)" class="btn btn-secondary">
