@@ -36,6 +36,13 @@ export default {
       }
     })
   },
+  deleteComment(id) {
+    return api().delete(`posts/deleteComment/${id}`, {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      }
+    })
+  },
   deletePost(id) {
     return api().delete(`posts/${id}`, {
       headers: {

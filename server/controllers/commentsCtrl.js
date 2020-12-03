@@ -32,7 +32,7 @@ exports.createComment = (req, res) => {
 
 exports.updateComment = (req, res) => {
     const data = req.body.comment;
-    comment.findOne({where: {id_comment: req.params.cmt}})
+    comment.findOne({where: {id_comment: data.id_comment}})
         .then((found) => {
             if (found) {
                 comment.update({
@@ -51,10 +51,10 @@ exports.updateComment = (req, res) => {
 };
 
 exports.deleteComment = (req, res) => {
-    comment.findOne({where: {id_comment: req.params.cmt}})
+    comment.findOne({where: {id_comment: req.params.id}})
         .then((found) => {
             if (found) {
-                comment.destroy({where: {id_comment: req.params.cmt}})
+                comment.destroy({where: {id_comment: req.params.id}})
                     .then(() => res.status(200).json({message: 'comment deleted'}))
                     .catch((err) => res.status(400).json({err}))
             } else {

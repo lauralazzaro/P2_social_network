@@ -23,29 +23,6 @@
         Modify Post
       </button>
     </div>
-    <div
-      class="card row text-left"
-      v-for="comment in comments"
-      :key="comment.id_comment"
-      style="margin-bottom: 30px; margin-top: 30px"
-    >
-      <div class="col">
-        <p class="card-text" v-if="`${comment.text}` !== 'null'">
-          {{ comment.text }}
-        </p>
-        <div>
-          <img
-            v-if="`${comment.imageUrl}` !== 'null'"
-            :src="`${comment.imageUrl}`"
-            alt="image"
-            class="card-img-right"
-          >
-        </div>
-      </div>
-      <div class="col">
-        Comment by {{ comment.user.username }}
-      </div>
-    </div>
     <div>
       <h4> Insert Comment </h4>
       <div class="container">
@@ -74,6 +51,39 @@
             <button class="btn btn-secondary" role="button">Send</button>
           </div>
         </form>
+      </div>
+    </div>
+    <div
+      class="card row text-left"
+      v-for="comment in comments"
+      :key="comment.id_comment"
+      style="margin-bottom: 30px; margin-top: 30px"
+    >
+      <div class="col">
+        <p class="card-text" v-if="`${comment.text}` !== 'null'">
+          {{ comment.text }}
+        </p>
+        <div>
+          <img
+            v-if="`${comment.imageUrl}` !== 'null'"
+            :src="`${comment.imageUrl}`"
+            alt="image"
+            class="card-img-right"
+          >
+        </div>
+      </div>
+      <div class="col">
+        Comment by {{ comment.user.username }}
+      </div>
+      <div
+        v-if="`${comment.id_user}` === `${id_user}`">
+        <button
+          class="btn btn-danger" @click="deleteComment(comment.id_comment)">
+          Delete Post
+        </button>
+        <button class="btn btn-primary" @click="">
+          Modify Post
+        </button>
       </div>
     </div>
   </div>
@@ -120,6 +130,15 @@ export default {
         .then(() => {
           console.log('Post deleted')
           this.$router.push('/posts')
+        })
+        .catch((err) => console.log(err))
+    },
+    deleteComment(id) {
+      console.log(id)
+      posts.deleteComment(parseInt(id))
+        .then(() => {
+          console.log('Comment deleted')
+          //this.$router.push('/posts')
         })
         .catch((err) => console.log(err))
     },

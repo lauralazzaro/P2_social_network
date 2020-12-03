@@ -12,7 +12,7 @@ router.post('', auth, multer, postsCtrl.createPost);
 router.put('/:id', auth, multer, postsCtrl.updatePost);
 
 router.get('/:id/comments', auth, commentsCtrl.getAllComments);
-router.delete('/:id/comments/:cmt', auth, commentsCtrl.deleteComment);
+router.delete('/deleteComment/:id', auth, commentsCtrl.deleteComment);
 router.post('/createComment', auth, commentsCtrl.createComment);
 router.put('/:id/comments/:cmt', auth, commentsCtrl.updateComment);
 
