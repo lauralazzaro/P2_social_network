@@ -51,13 +51,15 @@ exports.updateComment = (req, res) => {
 exports.deleteComment = (req, res) => {
     comment.findOne({where: {id_comment: req.params.id}})
         .then((found) => {
-            if (found) {
-                comment.destroy({where: {id_comment: req.params.id}})
-                    .then(() => res.status(200).json({message: 'comment deleted'}))
-                    .catch((err) => res.status(400).json({err}))
-            } else {
-                throw new Error('Comment not found');
-            }
-        })
-        .catch((err) => res.status(500).json(err))
+            if (found.imageUrl !== 'null') {
+                const filename = found.imageUrl.split('/images/')[1];
+                fs.unlink(`images/${filename}`, (err) => {
+                    if (err) throw err;
+                });
+            } else throw ('Post not found');
+
+            comment.destroy({where: {id_comment: req.params.id}})
+                .then(() => res.status(200).json({message: 'comment deleted'}))
+                .catch((err) => res.status(400).json({err}))
+        }).catch((err) => res.status(500).json(err))
 };

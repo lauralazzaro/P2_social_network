@@ -14,7 +14,7 @@
       </div>
     </div>
     <div
-      v-if="`${owner}` === 'true'">
+      v-if="`${owner}` === 'true' || `${role}` === 'moderator'">
       <button
         class="btn btn-danger" @click="deletePost">
         Delete Post
@@ -77,7 +77,7 @@
         Comment by {{ comment.user.username }}
       </div>
       <div
-        v-if="`${comment.id_user}` === `${id_user}`">
+        v-if="`${comment.id_user}` === `${id_user}` || `${role}` === 'moderator'">
         <button
           class="btn btn-danger" @click="deleteComment(comment.id_comment)">
           Delete Post
@@ -106,7 +106,7 @@ export default {
       subject: 1,
       id_post: null,
       id_user: '',
-      newComment: {}
+      role: ''
     }
   },
   methods: {
@@ -176,6 +176,7 @@ export default {
       this.getComment()
       this.id_user = parseInt(localStorage.getItem('id_user'))
       this.id_post = `${this.$route.params.id}`
+      this.role = localStorage.getItem('role')
     }
   }
 }

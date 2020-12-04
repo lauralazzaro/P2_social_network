@@ -47,7 +47,8 @@ export default {
             localStorage.setItem('token', res.data.token)
             localStorage.setItem('id_user', res.data.id_user)
             localStorage.setItem('isLogged', 'true')
-            this.$router.push('/')
+            localStorage.setItem('role', res.data.role)
+           this.$router.push('/')
           } else {
             throw Error('Username or password incorrect')
           }

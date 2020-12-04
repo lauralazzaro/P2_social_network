@@ -60,6 +60,7 @@ export default {
   }
 }
 </script>
+
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 img {
@@ -69,6 +70,4 @@ img {
 .row {
   border-bottom: 1px solid #000;
 }
-
-
 </style>

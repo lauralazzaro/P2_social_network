@@ -40,20 +40,16 @@ export default {
     return {
       text: '',
       file: null,
-      id_user: '',
       subject: 1
 
     }
   },
   methods: {
     onSubmit() {
-      console.log(this.id_user)
-
       const formData = new FormData()
 
       if (this.file) formData.append('file', this.file, this.file.name)
       if (this.text) formData.append('text', this.text)
-      formData.append('id_user', this.id_user)
       formData.append('subject', JSON.stringify(this.subject))
 
       for (let key of formData.entries()) {

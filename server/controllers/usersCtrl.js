@@ -17,11 +17,11 @@ pwdCheck
 exports.signup = (req, res) => {
     const email = req.body.email;
     const username = req.body.username;
-    const id_role = req.body.id_role;
+    const id_role = 1;
 
     bcrypt.hash(req.body.password, 10)
         .then((hash) => {
-            if (pwdCheck.validate(req.body.password)){
+            if (pwdCheck.validate(req.body.password)) {
                 userModel.create({
                     email,
                     password: hash,
@@ -30,8 +30,7 @@ exports.signup = (req, res) => {
                 })
                     .then(() => res.status(201).json({message: 'User created!'}))
                     .catch((err) => res.status(400).json({err}));
-            }
-            else {
+            } else {
                 throw new Error('Invalid password format');
             }
         }).catch((err) => res.status(500).json({err}));
@@ -52,13 +51,13 @@ exports.login = (req, res) => {
                     if (!valid) {
                         throw new Error('Invalid password')
                     }
-
                     res.status(200).json({
                         id_user: user.id_user,
+                        role: user.role.name,
                         token: jwt.sign(
                             {id_user: user.id_user},
                             process.env.JWT_TOKEN,
-                            {expiresIn: '12h'}
+                            {expiresIn: '24h'}
                         )
                     });
                 })
