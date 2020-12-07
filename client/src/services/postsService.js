@@ -43,6 +43,20 @@ export default {
       }
     })
   },
+  modifyComment(id, body) {
+    return api().put(`posts/modifyComment/${id}`, body, {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      }
+    })
+  },
+  getOneComment(id) {
+    return api().get(`posts/getOneComment/${id}`, {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      }
+    })
+  },
   deletePost(id) {
     return api().delete(`posts/${id}`, {
       headers: {

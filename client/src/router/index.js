@@ -5,7 +5,8 @@ import Posts from '../components/Posts'
 import Post from '../components/Post'
 import Signup from '../components/Signup'
 import PostForm from '../components/PostForm'
-import ModifyPost from '../components/ModifyPost';
+import ModifyPost from '../components/ModifyPost'
+import ModifyComment from '../components/ModifyComment'
 
 Vue.use(Router)
 
@@ -35,6 +36,14 @@ export default new Router({
       }
     },
     {
+      path: '/posts/modifyComment/:id',
+      name: 'ModifyComment',
+      component: ModifyComment,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
       path: '/posts/createPost',
       name: 'PostForm',
       component: PostForm,
@@ -50,7 +59,6 @@ export default new Router({
         requiresAuth: true
       }
     },
-    ,
     {
       path: '/posts/:id',
       name: 'Post',

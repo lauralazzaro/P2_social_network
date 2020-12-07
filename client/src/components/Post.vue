@@ -60,34 +60,34 @@
       :key="comment.id_comment"
       style="margin-bottom: 30px; margin-top: 30px"
     >
-      <div class="col">
-        <p class="card-text" v-if="`${comment.text}` !== 'null'">
-          {{ comment.text }}
-        </p>
-        <div>
-          <img
-            v-if="`${comment.imageUrl}` !== 'null'"
-            :src="`${comment.imageUrl}`"
-            alt="image"
-            class="card-img-right"
-          >
+        <div class="col">
+          <p class="card-text" v-if="`${comment.text}` !== 'null'">
+            {{ comment.text }}
+          </p>
+          <div>
+            <img
+              v-if="`${comment.imageUrl}` !== 'null'"
+              :src="`${comment.imageUrl}`"
+              alt="image"
+              class="card-img-right"
+            >
+          </div>
+        </div>
+        <div class="col">
+          Comment by {{ comment.user.username }}
+        </div>
+        <div
+          v-if="`${comment.id_user}` === `${id_user}` || `${role}` === 'moderator'">
+          <button
+            class="btn btn-danger" @click="deleteComment(comment.id_comment)">
+            Delete Post
+          </button>
+          <button class="btn btn-primary" @click="$router.push(`/posts/modifyComment/${comment.id_comment}`)">
+            Modify Post
+          </button>
         </div>
       </div>
-      <div class="col">
-        Comment by {{ comment.user.username }}
-      </div>
-      <div
-        v-if="`${comment.id_user}` === `${id_user}` || `${role}` === 'moderator'">
-        <button
-          class="btn btn-danger" @click="deleteComment(comment.id_comment)">
-          Delete Post
-        </button>
-        <button class="btn btn-primary" @click="">
-          Modify Post
-        </button>
-      </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -129,7 +129,6 @@ export default {
     deletePost() {
       posts.deletePost(this.$route.params.id)
         .then(() => {
-          console.log('Post deleted')
           this.$router.push('/posts')
         })
         .catch((err) => console.log(err))
@@ -138,7 +137,6 @@ export default {
       console.log(id)
       posts.deleteComment(parseInt(id))
         .then(() => {
-          console.log('Comment deleted')
           location.reload()
         })
         .catch((err) => console.log(err))
@@ -155,18 +153,12 @@ export default {
       formData.append('id_user', this.id_user)
       formData.append('subject', JSON.stringify(this.subject))
 
-      for (let key of formData.entries()) {
-        console.log(key)
-      }
-
       posts.createComment(formData)
         .then(() => {
           location.reload()
         })
         .catch((err) => console.log(err))
-
-      console.log('comment sent')
-    },
+    }
   },
   mounted() {
     if (!localStorage.getItem('token')) {
