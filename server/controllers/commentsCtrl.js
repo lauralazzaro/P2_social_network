@@ -37,8 +37,8 @@ exports.updateComment = (req, res) => {
     console.log(text);
 
     comment.update({
-            text: data.text,
-            imageUrl: data.imageUrl
+            text: text,
+            imageUrl: imgUrl
         },
         {where: {id_comment: req.params.id}})
         .then(() => res.status(200).json({message: 'comment updated'}))
