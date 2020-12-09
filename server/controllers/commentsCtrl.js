@@ -30,11 +30,8 @@ exports.createComment = (req, res) => {
 
 exports.updateComment = (req, res) => {
     const data = req.body;
-    const imgUrl = req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null;
+    const imgUrl = req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : req.body.imageUrl;
     const text = data.text ? data.text : null;
-
-    console.log(imgUrl);
-    console.log(text);
 
     comment.update({
             text: text,

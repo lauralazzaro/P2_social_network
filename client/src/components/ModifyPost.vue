@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1> Modify post: {{ $route.params.id }} </h1>
+    <h1> Modify post:  </h1>
     <div class="container">
       <form @submit.prevent="onSubmit" enctype="multipart/form-data">
         <div class="form-group text-left">
@@ -40,8 +40,8 @@ export default {
     return {
       text: '',
       file: null,
-      subject: 1
-
+      subject: 1,
+      imgUrl: null
     }
   },
   methods: {
@@ -50,6 +50,7 @@ export default {
 
       if (this.file) formData.append('file', this.file, this.file.name)
       if (this.text) formData.append('text', this.text)
+      if (this.imgUrl) formData.append('imageUrl', this.imgUrl)
       formData.append('subject', JSON.stringify(this.subject))
 
       for (let key of formData.entries()) {
@@ -75,8 +76,8 @@ export default {
       posts.getOnePost(this.$route.params.id)
         .then((res) => {
           console.log(res)
+          if(res.data.imageUrl !== 'null') this.imgUrl = res.data.imageUrl
           this.text = res.data.text
-          this.file = res.data.imageUrl
           this.subject = 1
         })
         .catch((err) => console.log(err))

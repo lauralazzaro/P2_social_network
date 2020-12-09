@@ -38,7 +38,7 @@ exports.createPost = (req, res) => {
 
 exports.updatePost = (req, res) => {
     const data = req.body;
-    const imgUrl = req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null;
+    const imgUrl = req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : req.body.imageUrl;
     const text = data.text ? data.text : null;
 
     post.update({

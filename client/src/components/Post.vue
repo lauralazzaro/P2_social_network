@@ -80,10 +80,10 @@
           v-if="`${comment.id_user}` === `${id_user}` || `${role}` === 'moderator'">
           <button
             class="btn btn-danger" @click="deleteComment(comment.id_comment)">
-            Delete Post
+            Delete Comment
           </button>
           <button class="btn btn-primary" @click="$router.push(`/posts/modifyComment/${comment.id_comment}`)">
-            Modify Post
+            Modify Comment
           </button>
         </div>
       </div>
