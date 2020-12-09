@@ -51,11 +51,11 @@ exports.deleteComment = (req, res) => {
                     if (err) throw err;
                 });
             } else throw ('Post not found');
+        }).catch((err) => res.status(500).json(err));
 
-            comment.destroy({where: {id_comment: req.params.id}})
-                .then(() => res.status(200).json({message: 'comment deleted'}))
-                .catch((err) => res.status(400).json({err}))
-        }).catch((err) => res.status(500).json(err))
+    comment.destroy({where: {id_comment: req.params.id}})
+        .then(() => res.status(200).json({message: 'comment deleted'}))
+        .catch((err) => res.status(400).json({err}))
 };
 
 exports.getOneComment = (req, res) => {

@@ -60,11 +60,11 @@ exports.deletePost = (req, res) => {
                     if (err) throw err;
                 });
             } else throw ('Post not found');
-
-            post.destroy({where: {id_post: req.params.id}})
-                .then(() => res.status(200).json({message: 'post deleted'}))
-                .catch((err) => res.status(400).json({err}))
         })
         .catch((err) => res.status(500).json(err))
+
+    post.destroy({where: {id_post: req.params.id}})
+        .then(() => res.status(200).json({message: 'post deleted'}))
+        .catch((err) => res.status(400).json({err}))
 };
 
