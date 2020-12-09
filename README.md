@@ -28,8 +28,19 @@ Create a company social network.
 - Import the database "projet7.sql"
 
 
-- Modify the .env file in the /server folder by replacing the username and password with the username and password to connect to your MySQL server
+- Create a .env file in the /server folder and copy:
 
+>DB_HOST = your_host_address
+> 
+>DB_USER = your_db_username
+> 
+>DB_PASSWORD = your_db_password
+> 
+>DB_NAME = projet7
+>
+>JWT_TOKEN = SUV0OAEwnPijZayYULEctBsA5FCaU6Hj
+
+then replace only the *HOST*, *USERNAME* and *PASSWORD* with your information to connect to your MySQL server
 
 - Open the /server folder in your terminal/console and run: 
 > npm install 
