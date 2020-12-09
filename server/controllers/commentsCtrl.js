@@ -29,35 +29,40 @@ exports.createComment = (req, res) => {
 };
 
 exports.updateComment = (req, res) => {
-    const data = req.body.comment;
-    comment.findOne({where: {id_comment: data.id_comment}})
-        .then((found) => {
-            if (found) {
-                comment.update({
-                        id_user: data.id_user,
-                        text: data.text,
-                        imageUrl: data.imageUrl
-                    },
-                    {where: {id_comment: req.params.cmt}})
-                    .then(() => res.status(200).json({message: 'comment updated'}))
-                    .catch((err) => res.status(400).json({err}))
-            } else {
-                throw new Error('Comment not found');
-            }
-        })
-        .catch((err) => res.status(500).json(err))
+    const data = req.body;
+    const imgUrl = req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : req.body.imageUrl;
+    const text = data.text ? data.text : null;
+
+    comment.update({
+            text: text,
+            imageUrl: imgUrl
+        },
+        {where: {id_comment: req.params.id}})
+        .then(() => res.status(200).json({message: 'comment updated'}))
+        .catch((err) => res.status(400).json({err}))
 };
 
 exports.deleteComment = (req, res) => {
     comment.findOne({where: {id_comment: req.params.id}})
         .then((found) => {
-            if (found) {
-                comment.destroy({where: {id_comment: req.params.id}})
-                    .then(() => res.status(200).json({message: 'comment deleted'}))
-                    .catch((err) => res.status(400).json({err}))
-            } else {
-                throw new Error('Comment not found');
-            }
-        })
-        .catch((err) => res.status(500).json(err))
+            if (found.imageUrl !== 'null') {
+                const filename = found.imageUrl.split('/images/')[1];
+                fs.unlink(`images/${filename}`, (err) => {
+                    if (err) throw err;
+                });
+            } else throw ('Post not found');
+        }).catch((err) => res.status(500).json(err));
+
+    comment.destroy({where: {id_comment: req.params.id}})
+        .then(() => res.status(200).json({message: 'comment deleted'}))
+        .catch((err) => res.status(400).json({err}))
+};
+
+exports.getOneComment = (req, res) => {
+    comment.findOne({
+        where: {id_comment: req.params.id},
+        include: 'user'
+    })
+        .then((post) => res.status(200).json(post))
+        .catch((err) => res.status(400).json({err}))
 };

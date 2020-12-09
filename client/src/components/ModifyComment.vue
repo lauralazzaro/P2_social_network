@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1> Modify post:  </h1>
+    <h1> Modify comment</h1>
     <div class="container">
       <form @submit.prevent="onSubmit" enctype="multipart/form-data">
         <div class="form-group text-left">
@@ -13,13 +13,13 @@
           >
         </div>
         <div class="form-group text-left">
-          <label for="text" class="sr-only"> Write text for your post </label>
+          <label for="text" class="sr-only"> Update the text of your comment </label>
           <input
             name="text"
             id="text"
             type="text"
             v-model="text"
-            :placeholder="this.text"
+            :placeholder="text"
             class="form-control"
           >
         </div>
@@ -35,12 +35,13 @@
 import posts from '../services/postsService';
 
 export default {
-  name: 'ModifyPost',
+  name: 'ModifyComment',
   data() {
     return {
       text: '',
       file: null,
       subject: 1,
+      id_post: null,
       imgUrl: null
     }
   },
@@ -57,10 +58,9 @@ export default {
         console.log(key)
       }
 
-      posts.modifyPost(`${this.$route.params.id}`, formData)
+      posts.modifyComment(`${this.$route.params.id}`, formData)
         .then(() => {
-          console.log('Post modified')
-          this.$router.push(`/posts/${this.$route.params.id}`)
+          this.$router.push(`/posts/${this.id_post}`)
         })
         .catch((err) => console.log(err));
     },
@@ -72,12 +72,13 @@ export default {
     if (!localStorage.getItem('token')) {
       this.$router.push('/login')
     } else {
-      this.id_user = localStorage.getItem('id_user')
-      posts.getOnePost(this.$route.params.id)
+      this.id_user = parseInt(localStorage.getItem('id_user'))
+      posts.getOneComment(this.$route.params.id)
         .then((res) => {
           console.log(res)
-          if(res.data.imageUrl !== 'null') this.imgUrl = res.data.imageUrl
           this.text = res.data.text
+          if(res.data.imageUrl !== 'null') this.imgUrl = res.data.imageUrl
+          this.id_post = res.data.id_post
           this.subject = 1
         })
         .catch((err) => console.log(err))
