@@ -61,10 +61,6 @@ export default {
       formData.append('id_user', this.id_user)
       formData.append('subject', JSON.stringify(this.subject))
 
-      for (let key of formData.entries()) {
-        console.log(key)
-      }
-
       posts.createPost(formData)
         .then(() => {
           console.log('Post Created')

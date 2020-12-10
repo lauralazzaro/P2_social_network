@@ -2,9 +2,12 @@
   <div class="container">
     <div class="row card text-left">
       <div class="col">
-        <h2 class="card-text" v-if="`${post.text}` !== 'null'">
+        <h4 class="card-text" style="font-style: italic" v-if="`${post.text}` !== 'null'">
+          {{username}} wrote:
+        </h4>
+        <h3 class="card-text" v-if="`${post.text}` !== 'null'">
           {{ post.text }}
-        </h2>
+        </h3>
         <div v-if="`${post.imageUrl}` !== 'null'">
           <img
             :src="`${post.imageUrl}`"
@@ -61,9 +64,14 @@
       style="margin-bottom: 30px; margin-top: 30px"
     >
         <div class="col">
-          <p class="card-text" v-if="`${comment.text}` !== 'null'">
-            {{ comment.text }}
+          <p style="font-style: italic; font-weight: bold">
+            {{ comment.user.username }} commented:
           </p>
+          <div class="card-text" v-if="`${comment.text}` !== 'null'">
+            <p>
+              {{ comment.text }}
+            </p>
+          </div>
           <div>
             <img
               v-if="`${comment.imageUrl}` !== 'null'"
@@ -72,9 +80,6 @@
               class="card-img-right"
             >
           </div>
-        </div>
-        <div class="col">
-          Comment by {{ comment.user.username }}
         </div>
         <div
           v-if="`${comment.id_user}` === `${id_user}` || `${role}` === 'moderator'">
