@@ -5,7 +5,12 @@
       <form @submit.prevent="onSubmit" enctype="multipart/form-data">
         <img
           v-bind:src="imagePreview"
-          v-show="showPreview"
+          v-if="showPreview"
+          style="max-width: 500px; margin-bottom: 30px"
+        />
+        <img
+          v-bind:src="imgUrl"
+          v-if="!showPreview"
           style="max-width: 500px; margin-bottom: 30px"
         />
         <div class="custom-file">
