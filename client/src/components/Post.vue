@@ -23,7 +23,7 @@
         Modify Post
       </button>
     </div>
-    <div style="margin-top: 20px;" class="container text-justify">
+    <div style="margin-top: 20px" class="container text-justify">
       <h5 style="font-weight: bold"> Insert Comment </h5>
       <div>
         <form @submit.prevent="onSubmitComment" enctype="multipart/form-data" method="POST">
