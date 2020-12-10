@@ -10,7 +10,6 @@ module.exports = (req, res, next) => {
         if (req.body.id_user && req.body.id_user !== id_user) {
             throw 'Invalid user ID';
         } else {
-            console.log(decodedToken);
             next();
         }
     } catch {

@@ -3,13 +3,19 @@
     <h1> Create new post </h1>
     <div class="container">
       <form @submit.prevent="onSubmit" enctype="multipart/form-data" method="POST">
-        <div class="form-group text-left">
-          <label for="file" class="sr-only">Upload image</label>
+        <img
+          v-bind:src="imagePreview"
+          v-show="showPreview"
+          style="max-width: 500px; margin-bottom: 30px"
+        />
+        <div class="custom-file">
+          <label for="file" class="custom-file-label">Upload image</label>
           <input
             name="file"
             id="file"
             type="file"
             @change="onFileUpload"
+            class="custom-file-input"
           >
         </div>
         <div class="form-group text-left">
@@ -41,8 +47,9 @@ export default {
       text: '',
       file: null,
       id_user: '',
-      subject: 1
-
+      subject: 1,
+      showPreview: false,
+      imagePreview: ''
     }
   },
   methods: {
@@ -54,10 +61,6 @@ export default {
       formData.append('id_user', this.id_user)
       formData.append('subject', JSON.stringify(this.subject))
 
-      for (let key of formData.entries()) {
-        console.log(key)
-      }
-
       posts.createPost(formData)
         .then(() => {
           console.log('Post Created')
@@ -67,6 +70,17 @@ export default {
     },
     onFileUpload(e) {
       this.file = e.target.files[0]
+      const reader  = new FileReader()
+
+      reader.addEventListener("load", function () {
+        this.showPreview = true;
+        this.imagePreview = reader.result
+      }.bind(this), false)
+      if( this.file ){
+        if ( /\.(jpe?g|png|gif)$/i.test( this.file.name ) ) {
+          reader.readAsDataURL( this.file );
+        }
+      }
     }
   },
   mounted() {

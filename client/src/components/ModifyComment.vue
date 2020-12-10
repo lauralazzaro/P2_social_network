@@ -3,13 +3,19 @@
     <h1> Modify comment</h1>
     <div class="container">
       <form @submit.prevent="onSubmit" enctype="multipart/form-data">
-        <div class="form-group text-left">
-          <label for="file" class="sr-only">Upload image</label>
+        <img
+          v-bind:src="imagePreview"
+          v-show="showPreview"
+          style="max-width: 500px; margin-bottom: 30px"
+        />
+        <div class="custom-file">
+          <label for="file" class="custom-file-label">Upload image</label>
           <input
             name="file"
             id="file"
             type="file"
             @change="onFileUpload"
+            class="custom-file-input"
           >
         </div>
         <div class="form-group text-left">
@@ -42,7 +48,9 @@ export default {
       file: null,
       subject: 1,
       id_post: null,
-      imgUrl: null
+      imgUrl: null,
+      showPreview: false,
+      imagePreview: ''
     }
   },
   methods: {
@@ -54,10 +62,6 @@ export default {
       if (this.imgUrl) formData.append('imageUrl', this.imgUrl)
       formData.append('subject', JSON.stringify(this.subject))
 
-      for (let key of formData.entries()) {
-        console.log(key)
-      }
-
       posts.modifyComment(`${this.$route.params.id}`, formData)
         .then(() => {
           this.$router.push(`/posts/${this.id_post}`)
@@ -66,6 +70,17 @@ export default {
     },
     onFileUpload(e) {
       this.file = e.target.files[0]
+      const reader  = new FileReader()
+
+      reader.addEventListener("load", function () {
+        this.showPreview = true;
+        this.imagePreview = reader.result
+      }.bind(this), false)
+      if( this.file ){
+        if ( /\.(jpe?g|png|gif)$/i.test( this.file.name ) ) {
+          reader.readAsDataURL( this.file );
+        }
+      }
     }
   },
   mounted() {

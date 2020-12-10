@@ -1,8 +1,13 @@
 <template>
   <div>
-    <h1> Modify post:  </h1>
+    <h1> Modify post  </h1>
     <div class="container">
       <form @submit.prevent="onSubmit" enctype="multipart/form-data">
+        <img
+          v-bind:src="imagePreview"
+          v-show="showPreview"
+          style="max-width: 500px; margin-bottom: 30px"
+        />
         <div class="form-group text-left">
           <label for="file" class="sr-only">Upload image</label>
           <input
@@ -41,7 +46,9 @@ export default {
       text: '',
       file: null,
       subject: 1,
-      imgUrl: null
+      imgUrl: null,
+      showPreview: false,
+      imagePreview: ''
     }
   },
   methods: {
@@ -53,10 +60,6 @@ export default {
       if (this.imgUrl) formData.append('imageUrl', this.imgUrl)
       formData.append('subject', JSON.stringify(this.subject))
 
-      for (let key of formData.entries()) {
-        console.log(key)
-      }
-
       posts.modifyPost(`${this.$route.params.id}`, formData)
         .then(() => {
           console.log('Post modified')
@@ -66,6 +69,17 @@ export default {
     },
     onFileUpload(e) {
       this.file = e.target.files[0]
+      const reader  = new FileReader()
+
+      reader.addEventListener("load", function () {
+        this.showPreview = true;
+        this.imagePreview = reader.result
+      }.bind(this), false)
+      if( this.file ){
+        if ( /\.(jpe?g|png|gif)$/i.test( this.file.name ) ) {
+          reader.readAsDataURL( this.file );
+        }
+      }
     }
   },
   mounted() {
