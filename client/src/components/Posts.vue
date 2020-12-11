@@ -4,7 +4,6 @@
       <img
         src="../assets/icon-left-font-monochrome-black.svg"
         alt="image groupomania"
-        style="height: 15rem"
       >
     </figure>
       <div class="row border-secondary text-justify" v-for="post in allPosts" :key="post.id_post">
@@ -19,7 +18,6 @@
                 :src="`${post.imageUrl}`"
                 alt="image"
                 class="img-fluid"
-                style="max-width: 200px"
               >
             </div>
             <button @click="$router.push(`posts/${post.id_post}`)" class="btn btn-secondary">
@@ -63,11 +61,11 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-img {
-  max-width: 30rem;
-}
-
 .row {
   border-bottom: 1px solid #000;
+}
+img{
+  max-width: 200px;
+  margin-top: 20px;
 }
 </style>

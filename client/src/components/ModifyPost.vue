@@ -6,32 +6,33 @@
         <img
           v-bind:src="imagePreview"
           v-if="showPreview"
-          style="max-width: 500px; margin-bottom: 30px"
         />
         <img
           v-bind:src="imgUrl"
           v-if="!showPreview"
-          style="max-width: 500px; margin-bottom: 30px"
         />
-        <div class="form-group text-left">
-          <label for="file" class="sr-only">Upload image</label>
+        <div class="custom-file">
+          <label for="file" class="custom-file-label">Upload image</label>
           <input
             name="file"
             id="file"
             type="file"
             @change="onFileUpload"
+            class="custom-file-input"
           >
         </div>
         <div class="form-group text-left">
           <label for="text" class="sr-only"> Write text for your post </label>
-          <input
+          <textarea
             name="text"
             id="text"
             type="text"
             v-model="text"
-            :placeholder="this.text"
+            :placeholder="text"
             class="form-control"
-          >
+            rows="3"
+            wrap="hard"
+          ></textarea>
         </div>
         <div class="form-group">
           <button class="btn btn-secondary" role="button">Send</button>
