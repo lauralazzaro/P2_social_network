@@ -25,7 +25,6 @@ All the content can be moderate by some users with special privileges.
 ## Download and Installation
 
 -   Import the database `projet7.sql` in your MySQL server
-
 -   Create a `.env` file in the /server folder and copy:
 
 >DB_HOST = your_host_address
@@ -39,7 +38,6 @@ All the content can be moderate by some users with special privileges.
 >JWT_TOKEN = SUV0OAEwnPijZayYULEctBsA5FCaU6Hj
 
 -   Then replace only the *HOST*, *USERNAME* and *PASSWORD* with your information to connect to your MySQL server
-
 -   Open the /server folder in your terminal/console and run: 
 >npm install 
 
