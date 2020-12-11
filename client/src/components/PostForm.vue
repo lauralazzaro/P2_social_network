@@ -6,7 +6,6 @@
         <img
           v-bind:src="imagePreview"
           v-show="showPreview"
-          style="max-width: 500px; margin-bottom: 30px"
         />
         <div class="custom-file">
           <label for="file" class="custom-file-label">Upload image</label>
@@ -20,14 +19,16 @@
         </div>
         <div class="form-group text-left">
           <label for="text" class="sr-only"> Write text for your post </label>
-          <input
+          <textarea
             name="text"
             id="text"
             type="text"
             v-model="text"
-            placeholder="Insert text for post"
+            placeholder="Write the text for your post here"
             class="form-control"
-          >
+            rows="3"
+            wrap="hard"
+          ></textarea>
         </div>
         <div class="form-group">
           <button class="btn btn-secondary" role="button">Send</button>

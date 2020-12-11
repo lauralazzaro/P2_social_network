@@ -6,7 +6,6 @@
         <img
           v-bind:src="imagePreview"
           v-if="showPreview"
-          style="max-width: 500px; margin-bottom: 30px"
         />
         <img
           v-bind:src="imgUrl"
@@ -25,14 +24,16 @@
         </div>
         <div class="form-group text-left">
           <label for="text" class="sr-only"> Update the text of your comment </label>
-          <input
+          <textarea
             name="text"
             id="text"
             type="text"
             v-model="text"
             :placeholder="text"
             class="form-control"
-          >
+            rows="3"
+            wrap="hard"
+          ></textarea>
         </div>
         <div class="form-group">
           <button class="btn btn-secondary" role="button">Send</button>

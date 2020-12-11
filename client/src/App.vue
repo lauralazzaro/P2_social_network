@@ -44,7 +44,6 @@ export default {
 input {
   margin-top: 20px;
   margin-bottom: 20px;
-
 }
 
 button {
@@ -64,4 +63,12 @@ body {
   color: #122542;
 }
 
+img{
+  max-width: 100%;
+  margin-bottom: 20px;
+}
+
+textarea{
+  margin-top: 10px;
+}
 </style>

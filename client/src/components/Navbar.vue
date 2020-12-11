@@ -1,7 +1,7 @@
 <template>
   <nav
     :style="{background: background || '#122542'}"
-    class="navbar fixed-top navbar-expand-lg ">
+    class="navbar fixed-top navbar-expand-sm ">
     <div class="nav navbar-nav mr-auto">
       <ul
         :style="{background: background || '#122542'}"
@@ -111,9 +111,9 @@ ul {
 }
 
 li {
-  padding: 10px 20px;
+  padding: 10px 10px;
   border-radius: 5px;
-  margin-left: 15px;
+  margin-left: 10px;
 }
 
 a {

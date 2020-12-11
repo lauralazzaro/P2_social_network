@@ -42,14 +42,16 @@
           </div>
           <div class="form-group text-left">
             <label for="text" class="sr-only"> Write text for your comment </label>
-            <input
+            <textarea
               name="text"
               id="text"
               type="text"
               v-model="text"
-              placeholder="Insert text for comment"
+              placeholder="Write your reply here"
               class="form-control"
-            >
+              rows="3"
+              wrap="hard"
+            ></textarea>
           </div>
           <div class="form-group">
             <button class="btn btn-secondary" role="button">Send Comment</button>
@@ -182,10 +184,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-img {
-  max-width: 20rem;
-}
-
 button {
   margin-top: 20px;
 }
