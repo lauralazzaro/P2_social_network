@@ -10,9 +10,8 @@
           <img
             :src="imagePath"
             alt="logo"
-            height="50px"
-            width="50px">
-
+            height="100%"
+            >
         </figure>
         <li
           v-if="`${isLogged}` === 'true'"
@@ -126,7 +125,8 @@ a {
 
 figure {
   cursor: pointer;
-  margin-top: 15px;
+  margin: auto;
+  height: 50px;
 }
 
 </style>

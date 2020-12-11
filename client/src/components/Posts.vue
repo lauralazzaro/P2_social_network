@@ -66,6 +66,6 @@ export default {
 }
 img{
   max-width: 200px;
-  margin-top: 10px;
+  margin-top: 20px;
 }
 </style>
