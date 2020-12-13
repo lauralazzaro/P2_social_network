@@ -54,12 +54,12 @@ exports.updatePost = (req, res) => {
 exports.deletePost = (req, res) => {
     post.findOne({where: {id_post: req.params.id}})
         .then((found) => {
-            if (found.imageUrl !== 'null') {
+            if (found.imageUrl) {
                 const filename = found.imageUrl.split('/images/')[1];
                 fs.unlink(`images/${filename}`, (err) => {
                     if (err) throw err;
                 });
-            } else throw ('Post not found');
+            } else console.log('Post not found');
         })
         .catch((err) => res.status(500).json(err))
 
