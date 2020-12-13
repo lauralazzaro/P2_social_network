@@ -29,8 +29,13 @@
     <div style="margin-top: 20px" class="container text-justify">
       <h5 style="font-weight: bold"> Insert Comment </h5>
       <div>
+        <img
+        v-bind:src="imagePreview"
+        v-if="showPreview"
+      />
         <form @submit.prevent="onSubmitComment" enctype="multipart/form-data" method="POST">
           <div class="custom-file">
+
             <label for="file" class="custom-file-label">Upload image</label>
             <input
               name="file"
@@ -113,7 +118,9 @@ export default {
       subject: 1,
       id_post: null,
       id_user: '',
-      role: ''
+      role: '',
+      showPreview: false,
+      imagePreview: ''
     }
   },
   methods: {
@@ -150,6 +157,17 @@ export default {
     },
     onFileUpload(e) {
       this.file = e.target.files[0]
+      const reader  = new FileReader()
+
+      reader.addEventListener("load", function () {
+        this.showPreview = true;
+        this.imagePreview = reader.result
+      }.bind(this), false)
+      if( this.file ){
+        if ( /\.(jpe?g|png|gif)$/i.test( this.file.name ) ) {
+          reader.readAsDataURL( this.file );
+        }
+      }
     },
     onSubmitComment() {
       const formData = new FormData()
