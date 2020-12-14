@@ -13,19 +13,18 @@ const post = db.define('post', {
     id_user: {
         type: Sequelize.INTEGER,
         unsigned: true,
-        reference: {
-            model: 'user',
-            key: 'id_user'
-        }
+        allowNull: true,
+        onDelete: 'SET NULL',
+        onUpdate: 'SET NULL'
     },
-    text:{
+    text: {
         type: Sequelize.TEXT
     },
-    imageUrl:{
+    imageUrl: {
         type: Sequelize.STRING,
         unsigned: true,
     },
-    id_subject:{
+    id_subject: {
         type: Sequelize.INTEGER,
         unsigned: true,
     }

@@ -1,7 +1,7 @@
 <template>
     <div>
       <h1> Login </h1>
-      <form @submit.prevent="onSubmit" class="form text-left">
+      <form @submit.prevent="onSubmit" class="form text-left ">
         <label for="email" class="sr-only"></label>
         <input
           id="email"
@@ -9,7 +9,7 @@
           label="email"
           v-model="body.email"
           placeholder="email"
-          class="form-control w-25"
+          class="form-control col-md-6"
         >
         <label for="password" class="sr-only"></label>
         <input
@@ -18,7 +18,7 @@
           label="password"
           v-model="body.password"
           placeholder="password"
-          class="form-control w-25"
+          class="form-control col-md-6"
         >
         <button class="btn btn-secondary">Login</button>
       </form>

@@ -17,11 +17,14 @@ const comment = db.define('comment', {
     id_user: {
         type: Sequelize.INTEGER,
         unsigned: true,
+        allowNull: true,
+        onDelete: 'SET NULL',
+        onUpdate: 'SET NULL'
     },
-    text:{
+    text: {
         type: Sequelize.TEXT
     },
-    imageUrl:{
+    imageUrl: {
         type: Sequelize.STRING,
         unsigned: true,
     }

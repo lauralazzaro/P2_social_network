@@ -1,18 +1,21 @@
 <template>
   <nav
     :style="{background: background || '#122542'}"
-    class="navbar fixed-top navbar-expand-sm ">
-    <div class="nav navbar-nav mr-auto">
+    class="navbar fixed-top navbar-expand-md navbar-dark">
+    <div class="nav navbar-nav">
+      <figure class="image-logo">
+      <img
+        :src="imagePath"
+        alt="logo"
+        height="100%"
+      >
+    </figure>
+
       <ul
         :style="{background: background || '#122542'}"
+        class="navbar-nav"
       >
-        <figure class="image-logo">
-          <img
-            :src="imagePath"
-            alt="logo"
-            height="100%"
-            >
-        </figure>
+
         <li
           v-if="`${isLogged}` === 'true'"
           class="nav-item"
@@ -29,12 +32,6 @@
             {{ link.text }}
           </router-link>
         </li>
-      </ul>
-    </div>
-    <div class="nav navbar-nav ml-auto">
-      <ul
-        :style="{background: background || '#122542'}"
-      >
         <li
           v-if="`${isLogged}` === 'true'"
           class="nav-item"
@@ -43,7 +40,21 @@
         >
           <a
             class="nav-link"
-            href="/" @click.prevent="logout">Logout</a>
+            href="/" @click.prevent="deleteAccount(id_user)"
+            :style="{color: linkColor || '#FFF'}"
+          >Delete Account</a>
+        </li>
+        <li
+          v-if="`${isLogged}` === 'true'"
+          class="nav-item"
+          @mouseenter="$event.currentTarget.style.background = hoverBackground || '#AFAFB2' "
+          @mouseleave="$event.currentTarget.style.background = background || '#122542' "
+        >
+          <a
+            class="nav-link"
+            href="/" @click.prevent="logout"
+            style="color: #FFF"
+            >Logout</a>
         </li>
         <li
           v-if="`${isLogged}` === 'false'"
@@ -53,7 +64,9 @@
         >
           <router-link
             class="nav-link"
-            to="Login">Login</router-link>
+            to="Login"
+            :style="{color: linkColor || '#FFF'}"
+          >Login</router-link>
         </li>
         <li
           v-if="`${isLogged}` === 'false'"
@@ -63,7 +76,9 @@
         >
           <router-link
             class="nav-link"
-            to="Signup">Signup</router-link>
+            to="Signup"
+            :style="{color: linkColor || '#FFF'}"
+          >Signup</router-link>
         </li>
       </ul>
     </div>
@@ -71,10 +86,13 @@
 </template>
 
 <script>
+import auth from '../services/authService';
+
 export default {
   data() {
     return {
-      isLogged: 'false'
+      isLogged: 'false',
+      id_user: null
     }
   },
   name: 'Navbar',
@@ -84,12 +102,21 @@ export default {
       localStorage.clear()
       this.isLogged = 'false'
       this.$router.push('/login')
+    },
+    deleteAccount(id) {
+      auth.deleteAccount(parseInt(id))
+        .then(() => {
+          this.logout()
+          this.$router.push('/signup')
+        })
+        .catch((err) => console.log(err))
     }
   },
   mounted() {
     if (localStorage.getItem('isLogged') === 'true') {
       this.isLogged = 'true'
     }
+    this.id_user = parseInt(localStorage.getItem('id_user'))
   }
 }
 </script>
@@ -112,7 +139,7 @@ ul {
 li {
   padding: 10px 10px;
   border-radius: 5px;
-  margin-left: 10px;
+  margin-left: 5px;
 }
 
 a {
@@ -127,6 +154,15 @@ figure {
   cursor: pointer;
   margin: auto;
   height: 50px;
+}
+
+.navbar-nav {
+  flex-flow: row;
+}
+
+.navbar {
+  flex-flow: row;
+  display: inline-flex;
 }
 
 </style>

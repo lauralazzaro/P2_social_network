@@ -8,12 +8,22 @@ db.subjects = require('./subjetModel');
 
 // one post has one user (creator)
 db.posts.belongsTo(db.users, {
-    foreignKey: 'id_user'
+    foreignKey: {
+        name: 'id_user',
+        allowNull: true
+    },
+    onDelete: 'SET NULL',
+    onUpdate: 'SET NULL'
 });
 
 // one comment has one user (creator)
 db.comments.belongsTo(db.users, {
-    foreignKey: 'id_user'
+    foreignKey: {
+        name: 'id_user',
+        allowNull: true
+    },
+    onDelete: 'SET NULL',
+    onUpdate: 'SET NULL'
 });
 
 // one comment has one post as parent

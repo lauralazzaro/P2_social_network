@@ -3,7 +3,7 @@
     <div class="row card text-left">
       <div class="col">
         <h4 class="card-text" style="font-style: italic" v-if="`${post.text}` !== 'null'">
-          {{username}} wrote:
+          {{ userDeleted(post) }} wrote:
         </h4>
         <h3 class="card-text" v-if="`${post.text}` !== 'null'">
           {{ post.text }}
@@ -30,9 +30,9 @@
       <h5 style="font-weight: bold"> Insert Comment </h5>
       <div>
         <img
-        v-bind:src="imagePreview"
-        v-if="showPreview"
-      />
+          v-bind:src="imagePreview"
+          v-if="showPreview"
+        />
         <form @submit.prevent="onSubmitComment" enctype="multipart/form-data" method="POST">
           <div class="custom-file">
 
@@ -68,38 +68,37 @@
       class="card row text-left"
       v-for="comment in comments"
       :key="comment.id_comment"
-      style="margin-bottom: 30px; margin-top: 30px"
     >
-        <div class="col">
-          <p style="font-style: italic; font-weight: bold">
-            {{ comment.user.username }} commented:
+      <div class="col">
+        <p style="font-style: italic; font-weight: bold">
+          {{ userDeleted(comment) }} commented:
+        </p>
+        <div class="card-text" v-if="`${comment.text}` !== 'null'">
+          <p>
+            {{ comment.text }}
           </p>
-          <div class="card-text" v-if="`${comment.text}` !== 'null'">
-            <p>
-              {{ comment.text }}
-            </p>
-          </div>
-          <div>
-            <img
-              v-if="`${comment.imageUrl}` !== 'null'"
-              :src="`${comment.imageUrl}`"
-              alt="image"
-              class="card-img-right"
-            >
-          </div>
         </div>
-        <div
-          v-if="`${comment.id_user}` === `${id_user}` || `${role}` === 'moderator'">
-          <button
-            class="btn btn-danger" @click="deleteComment(comment.id_comment)">
-            Delete Comment
-          </button>
-          <button class="btn btn-primary" @click="$router.push(`/posts/modifyComment/${comment.id_comment}`)">
-            Modify Comment
-          </button>
+        <div>
+          <img
+            v-if="`${comment.imageUrl}` !== 'null'"
+            :src="`${comment.imageUrl}`"
+            alt="image"
+            class="card-img-right"
+          >
         </div>
       </div>
+      <div
+        v-if="`${comment.id_user}` === `${id_user}` || `${role}` === 'moderator'">
+        <button
+          class="btn btn-danger" @click="deleteComment(comment.id_comment)">
+          Delete Comment
+        </button>
+        <button class="btn btn-primary" @click="$router.push(`/posts/modifyComment/${comment.id_comment}`)">
+          Modify Comment
+        </button>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -120,7 +119,8 @@ export default {
       id_user: '',
       role: '',
       showPreview: false,
-      imagePreview: ''
+      imagePreview: '',
+      accountDeleted: 'Account deleted'
     }
   },
   methods: {
@@ -128,7 +128,7 @@ export default {
       posts.getOnePost(this.$route.params.id)
         .then((res) => {
           this.post = res.data
-          this.username = res.data.user.username
+          this.username = this.userDeleted(res.data)
           if (parseInt(localStorage.getItem('id_user')) === this.post.id_user) {
             this.owner = true;
           }
@@ -148,7 +148,6 @@ export default {
         .catch((err) => console.log(err))
     },
     deleteComment(id) {
-      console.log(id)
       posts.deleteComment(parseInt(id))
         .then(() => {
           location.reload()
@@ -157,15 +156,15 @@ export default {
     },
     onFileUpload(e) {
       this.file = e.target.files[0]
-      const reader  = new FileReader()
+      const reader = new FileReader()
 
-      reader.addEventListener("load", function () {
+      reader.addEventListener('load', function () {
         this.showPreview = true;
         this.imagePreview = reader.result
       }.bind(this), false)
-      if( this.file ){
-        if ( /\.(jpe?g|png|gif)$/i.test( this.file.name ) ) {
-          reader.readAsDataURL( this.file );
+      if (this.file) {
+        if (/\.(jpe?g|png|gif)$/i.test(this.file.name)) {
+          reader.readAsDataURL(this.file);
         }
       }
     },
@@ -183,19 +182,25 @@ export default {
           location.reload()
         })
         .catch((err) => console.log(err))
+    },
+    userDeleted(row) {
+      if (row.user != null) {
+        return row.user.username
+      } else return this.accountDeleted
     }
   },
-  mounted() {
-    if (!localStorage.getItem('token')) {
-      this.$router.push('/login')
-    } else {
-      this.getPost()
-      this.getComment()
-      this.id_user = parseInt(localStorage.getItem('id_user'))
-      this.id_post = `${this.$route.params.id}`
-      this.role = localStorage.getItem('role')
-    }
+mounted()
+{
+  if (!localStorage.getItem('token')) {
+    this.$router.push('/login')
+  } else {
+    this.getPost()
+    this.getComment()
+    this.id_user = parseInt(localStorage.getItem('id_user'))
+    this.id_post = `${this.$route.params.id}`
+    this.role = localStorage.getItem('role')
   }
+}
 }
 
 </script>
