@@ -40,7 +40,9 @@
         >
           <a
             class="nav-link"
-            href="/" @click.prevent="deleteAccount(id_user)">Delete Account</a>
+            href="/" @click.prevent="deleteAccount(id_user)"
+            :style="{color: linkColor || '#FFF'}"
+          >Delete Account</a>
         </li>
         <li
           v-if="`${isLogged}` === 'true'"
@@ -50,7 +52,9 @@
         >
           <a
             class="nav-link"
-            href="/" @click.prevent="logout">Logout</a>
+            href="/" @click.prevent="logout"
+            style="color: #FFF"
+            >Logout</a>
         </li>
         <li
           v-if="`${isLogged}` === 'false'"
@@ -60,7 +64,9 @@
         >
           <router-link
             class="nav-link"
-            to="Login">Login</router-link>
+            to="Login"
+            :style="{color: linkColor || '#FFF'}"
+          >Login</router-link>
         </li>
         <li
           v-if="`${isLogged}` === 'false'"
@@ -70,7 +76,9 @@
         >
           <router-link
             class="nav-link"
-            to="Signup">Signup</router-link>
+            to="Signup"
+            :style="{color: linkColor || '#FFF'}"
+          >Signup</router-link>
         </li>
       </ul>
     </div>
@@ -96,7 +104,7 @@ export default {
       this.$router.push('/login')
     },
     deleteAccount(id) {
-      auth.deleteAccount(id)
+      auth.deleteAccount(parseInt(id))
         .then(() => {
           this.logout()
           this.$router.push('/signup')
