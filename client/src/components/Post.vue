@@ -210,4 +210,7 @@ mounted()
 button {
   margin-top: 20px;
 }
+.row {
+  margin-bottom: 10px;
+}
 </style>

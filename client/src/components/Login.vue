@@ -1,6 +1,12 @@
 <template>
     <div>
-      <h1> Login </h1>
+      <figure>
+        <img
+          src="../assets/icon-left-font-monochrome-black.svg"
+          alt="image groupomania"
+        >
+      </figure>
+      <h3> Login </h3>
       <form @submit.prevent="onSubmit" class="form text-left ">
         <label for="email" class="sr-only"></label>
         <input

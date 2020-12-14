@@ -45,7 +45,6 @@ export default {
       posts.getAllPosts()
         .then((res) => {
           this.allPosts = res.data
-          console.log(this.allPosts)
         })
         .catch((err) => console.log(err))
     },

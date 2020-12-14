@@ -1,6 +1,12 @@
 <template>
   <div>
-    <h1> Create new post </h1>
+    <figure>
+      <img
+        src="../assets/icon-left-font-monochrome-black.svg"
+        alt="image groupomania"
+      >
+    </figure>
+    <h3> Create new post </h3>
     <div class="container">
       <form @submit.prevent="onSubmit" enctype="multipart/form-data" method="POST">
         <img

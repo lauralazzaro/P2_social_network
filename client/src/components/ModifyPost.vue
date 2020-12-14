@@ -1,6 +1,12 @@
 <template>
   <div>
-    <h1> Modify post  </h1>
+    <figure>
+      <img
+        src="../assets/icon-left-font-monochrome-black.svg"
+        alt="image groupomania"
+      >
+    </figure>
+    <h3> Modify post  </h3>
     <div class="container">
       <form @submit.prevent="onSubmit" enctype="multipart/form-data">
         <img
