@@ -120,7 +120,7 @@ export default {
       role: '',
       showPreview: false,
       imagePreview: '',
-      userCommentDeleted: 'Account deleted'
+      accountDeleted: 'Account deleted'
     }
   },
   methods: {
@@ -186,7 +186,7 @@ export default {
     userDeleted(row) {
       if (row.user != null) {
         return row.user.username
-      } else return this.userCommentDeleted
+      } else return this.accountDeleted
     }
   },
 mounted()

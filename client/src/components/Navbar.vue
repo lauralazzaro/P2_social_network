@@ -1,18 +1,32 @@
 <template>
   <nav
     :style="{background: background || '#122542'}"
-    class="navbar fixed-top navbar-expand-sm ">
-    <div class="nav navbar-nav mr-auto">
+    class="navbar fixed-top navbar-expand-md navbar-dark">
+    <div class="nav navbar-nav">
+      <figure class="image-logo">
+      <img
+        :src="imagePath"
+        alt="logo"
+        height="100%"
+      >
+    </figure>
+      <button class="navbar-toggler navbar-toggler-right"
+              type="button" data-toggle="collapse"
+              data-target="#navbarNav"
+              aria-controls="navbarNav"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div
+        class="collapse navbar-collapse"
+        id="navbarNav">
       <ul
         :style="{background: background || '#122542'}"
+        class="navbar-nav"
       >
-        <figure class="image-logo">
-          <img
-            :src="imagePath"
-            alt="logo"
-            height="100%"
-            >
-        </figure>
+
         <li
           v-if="`${isLogged}` === 'true'"
           class="nav-item"
@@ -29,12 +43,6 @@
             {{ link.text }}
           </router-link>
         </li>
-      </ul>
-    </div>
-    <div class="nav navbar-nav ml-auto">
-      <ul
-        :style="{background: background || '#122542'}"
-      >
         <li
           v-if="`${isLogged}` === 'true'"
           class="nav-item"
@@ -77,6 +85,7 @@
         </li>
       </ul>
     </div>
+    </div>
   </nav>
 </template>
 
@@ -98,7 +107,7 @@ export default {
       this.isLogged = 'false'
       this.$router.push('/login')
     },
-    deleteAccount(id){
+    deleteAccount(id) {
       auth.deleteAccount(id)
         .then(() => {
           this.logout()
@@ -134,7 +143,7 @@ ul {
 li {
   padding: 10px 10px;
   border-radius: 5px;
-  margin-left: 10px;
+  margin-left: 5px;
 }
 
 a {
@@ -149,6 +158,15 @@ figure {
   cursor: pointer;
   margin: auto;
   height: 50px;
+}
+
+.navbar-nav {
+  flex-flow: row;
+}
+
+.navbar {
+  flex-flow: row;
+  display: inline-flex;
 }
 
 </style>
