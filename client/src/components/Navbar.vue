@@ -43,6 +43,16 @@
         >
           <a
             class="nav-link"
+            href="/" @click.prevent="deleteAccount(id_user)">Delete Account</a>
+        </li>
+        <li
+          v-if="`${isLogged}` === 'true'"
+          class="nav-item"
+          @mouseenter="$event.currentTarget.style.background = hoverBackground || '#AFAFB2' "
+          @mouseleave="$event.currentTarget.style.background = background || '#122542' "
+        >
+          <a
+            class="nav-link"
             href="/" @click.prevent="logout">Logout</a>
         </li>
         <li
@@ -71,10 +81,13 @@
 </template>
 
 <script>
+import auth from '../services/authService';
+
 export default {
   data() {
     return {
-      isLogged: 'false'
+      isLogged: 'false',
+      id_user: null
     }
   },
   name: 'Navbar',
@@ -84,12 +97,21 @@ export default {
       localStorage.clear()
       this.isLogged = 'false'
       this.$router.push('/login')
+    },
+    deleteAccount(id){
+      auth.deleteAccount(id)
+        .then(() => {
+          this.logout()
+          this.$router.push('/signup')
+        })
+        .catch((err) => console.log(err))
     }
   },
   mounted() {
     if (localStorage.getItem('isLogged') === 'true') {
       this.isLogged = 'true'
     }
+    this.id_user = parseInt(localStorage.getItem('id_user'))
   }
 }
 </script>

@@ -65,3 +65,9 @@ exports.login = (req, res) => {
         })
         .catch((err) => res.status(500).json({err}));
 }
+
+exports.deleteAccount = (req, res) => {
+    userModel.destroy({where: {id_user: req.params.id}})
+        .then(() => res.status(200).json({message: 'account deleted'}))
+        .catch((err) => res.status(400).json({err}))
+};

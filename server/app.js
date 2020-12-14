@@ -17,22 +17,15 @@ const con = mysql.createConnection({
     password: process.env.DB_PASSWORD
 });
 
-con.connect(function(err) {
-    if (err) throw err;
-    con.query("CREATE DATABASE IF NOT EXISTS projet7", function (err, result) {
-        if (err) throw err;
-        console.log("Database created");
-        con.end();
-    });
-});
-
 connection.authenticate()
     .then(() => console.log('Connected to DB'))
     .catch((err) => console.log('connection to db failed: ' + err));
 
-relations.sync({force: false})
-    .then(() => console.log('Tables synchronized'))
-    .catch((err) => console.log('Unable to sync: ' + err));
+connection.query('SET FOREIGN_KEY_CHECKS = 0').then(() => {
+    relations.sync({force: false})
+        .then(() => console.log('Tables synchronized'))
+        .catch((err) => console.log('Unable to sync: ' + err));
+}).catch((err) => console.log('Error: ' + err));
 
 app.use(cors());
 

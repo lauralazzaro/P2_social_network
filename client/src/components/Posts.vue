@@ -10,7 +10,7 @@
         <div class="col">
           <div class="card-body">
             <div class="card-text" v-if="`${post.text}` !== 'null'">
-              {{ post.text }} <i>created by</i> <b>{{ post.user.username }}</b>
+              {{ post.text }} <i>created by</i> <b>{{ user(post) }}</b>
             </div>
             <div>
               <img
@@ -21,7 +21,7 @@
               >
             </div>
             <button @click="$router.push(`posts/${post.id_post}`)" class="btn btn-secondary">
-              View posts
+              View post
             </button>
           </div>
         </div>
@@ -36,7 +36,8 @@ export default {
   name: 'Posts',
   data() {
     return {
-      allPosts: {}
+      allPosts: {},
+      username: 'Account Deleted'
     }
   },
   methods: {
@@ -44,8 +45,14 @@ export default {
       posts.getAllPosts()
         .then((res) => {
           this.allPosts = res.data
+          console.log(this.allPosts)
         })
         .catch((err) => console.log(err))
+    },
+    user(post) {
+      if(post.user != null) {
+        return post.user.username
+      } else return this.username
     }
   },
   mounted() {
@@ -53,7 +60,7 @@ export default {
       this.$router.push('/login')
     }
     else {
-      return this.getPosts()
+      this.getPosts()
     }
   }
 }

@@ -21,8 +21,7 @@ const user = db.define('user', {
     },
     username: {
         type: Sequelize.STRING,
-        allowNull: true,
-        unique: true
+        allowNull: true
     },
     id_role: {
         type: Sequelize.INTEGER,
