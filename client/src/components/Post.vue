@@ -2,8 +2,10 @@
   <div class="container">
     <div class="row card text-left">
       <div class="col">
-        <h4 class="card-text" style="font-style: italic" v-if="`${post.text}` !== 'null'">
-          {{ userDeleted(post) }} wrote:
+        <h4
+          class="card-text"
+          v-if="`${post.text}` !== 'null'">
+          {{ checkUserExist(post) }} wrote:
         </h4>
         <h3 class="card-text" v-if="`${post.text}` !== 'null'">
           {{ post.text }}
@@ -32,10 +34,10 @@
         <img
           v-bind:src="imagePreview"
           v-if="showPreview"
+          alt="preview upload image"
         />
         <form @submit.prevent="onSubmitComment" enctype="multipart/form-data" method="POST">
           <div class="custom-file">
-
             <label for="file" class="custom-file-label">Upload image</label>
             <input
               name="file"
@@ -59,7 +61,10 @@
             ></textarea>
           </div>
           <div class="form-group">
-            <button class="btn btn-secondary" role="button">Send Comment</button>
+            <button
+              class="btn btn-secondary"
+              role="button"
+            >Send Comment</button>
           </div>
         </form>
       </div>
@@ -71,7 +76,7 @@
     >
       <div class="col">
         <p style="font-style: italic; font-weight: bold">
-          {{ userDeleted(comment) }} commented:
+          {{ checkUserExist(comment) }} commented:
         </p>
         <div class="card-text" v-if="`${comment.text}` !== 'null'">
           <p>
@@ -90,10 +95,15 @@
       <div
         v-if="`${comment.id_user}` === `${id_user}` || `${role}` === 'moderator'">
         <button
-          class="btn btn-danger" @click="deleteComment(comment.id_comment)">
+          class="btn btn-danger"
+          @click="deleteComment(comment.id_comment)"
+        >
           Delete Comment
         </button>
-        <button class="btn btn-primary" @click="$router.push(`/posts/modifyComment/${comment.id_comment}`)">
+        <button
+          class="btn btn-primary"
+          @click="$router.push(`/posts/modifyComment/${comment.id_comment}`)"
+        >
           Modify Comment
         </button>
       </div>
@@ -112,12 +122,11 @@ export default {
       username: '',
       comments: {},
       owner: false,
-      file: '',
-      text: '',
-      subject: 1,
+      file: '', // file to send in insert comment
+      text: '', // file to send in insert comment
       id_post: null,
-      id_user: '',
-      role: '',
+      id_user: '', // used to check the logged user and show button for control
+      role: '', // check if user or moderator
       showPreview: false,
       imagePreview: '',
       accountDeleted: 'Account deleted'
@@ -128,7 +137,7 @@ export default {
       posts.getOnePost(this.$route.params.id)
         .then((res) => {
           this.post = res.data
-          this.username = this.userDeleted(res.data)
+          this.username = this.checkUserExist(res.data)
           if (parseInt(localStorage.getItem('id_user')) === this.post.id_user) {
             this.owner = true;
           }
@@ -175,7 +184,6 @@ export default {
       if (this.text) formData.append('text', this.text)
       formData.append('id_post', this.id_post)
       formData.append('id_user', this.id_user)
-      formData.append('subject', JSON.stringify(this.subject))
 
       posts.createComment(formData)
         .then(() => {
@@ -183,33 +191,27 @@ export default {
         })
         .catch((err) => console.log(err))
     },
-    userDeleted(row) {
+    checkUserExist(row) {
       if (row.user != null) {
         return row.user.username
       } else return this.accountDeleted
     }
   },
-mounted()
-{
-  if (!localStorage.getItem('token')) {
-    this.$router.push('/login')
-  } else {
-    this.getPost()
-    this.getComment()
-    this.id_user = parseInt(localStorage.getItem('id_user'))
-    this.id_post = `${this.$route.params.id}`
-    this.role = localStorage.getItem('role')
+  mounted() {
+    if (!localStorage.getItem('token')) {
+      this.$router.push('/login')
+    } else {
+      this.getPost()
+      this.getComment()
+      this.id_user = parseInt(localStorage.getItem('id_user'))
+      this.id_post = `${this.$route.params.id}`
+      this.role = localStorage.getItem('role')
+    }
   }
 }
-}
-
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-button {
-  margin-top: 20px;
-}
 .row {
   margin-bottom: 10px;
 }

@@ -6,7 +6,11 @@
         alt="image groupomania"
       >
     </figure>
-      <div class="row border-secondary text-justify" v-for="post in allPosts" :key="post.id_post">
+      <div
+        class="row border-secondary text-justify"
+        v-for="post in allPosts"
+        :key="post.id_post"
+      >
         <div class="col">
           <div class="card-body">
             <div class="card-text" v-if="`${post.text}` !== 'null'">

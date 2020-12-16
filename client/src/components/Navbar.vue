@@ -1,7 +1,6 @@
 <template>
   <nav
-    :style="{background: background || '#122542'}"
-    class="navbar fixed-top navbar-expand-md navbar-dark">
+    class="navbar fixed-top navbar-expand-md">
     <div class="nav navbar-nav">
       <figure class="image-logo">
       <img
@@ -12,7 +11,6 @@
     </figure>
 
       <ul
-        :style="{background: background || '#122542'}"
         class="navbar-nav"
       >
 
@@ -21,13 +19,10 @@
           class="nav-item"
           v-for="(link, index) in navLinks"
           :key="index"
-          @mouseenter="$event.currentTarget.style.background = hoverBackground || '#AFAFB2' "
-          @mouseleave="$event.currentTarget.style.background = background || '#122542' "
         >
           <router-link
             class="nav-link"
             :to="link.path"
-            :style="{color: linkColor || '#FFF'}"
           >
             {{ link.text }}
           </router-link>
@@ -35,49 +30,37 @@
         <li
           v-if="`${isLogged}` === 'true'"
           class="nav-item"
-          @mouseenter="$event.currentTarget.style.background = hoverBackground || '#AFAFB2' "
-          @mouseleave="$event.currentTarget.style.background = background || '#122542' "
         >
           <a
             class="nav-link"
             href="/" @click.prevent="deleteAccount(id_user)"
-            :style="{color: linkColor || '#FFF'}"
           >Delete Account</a>
         </li>
         <li
           v-if="`${isLogged}` === 'true'"
           class="nav-item"
-          @mouseenter="$event.currentTarget.style.background = hoverBackground || '#AFAFB2' "
-          @mouseleave="$event.currentTarget.style.background = background || '#122542' "
         >
           <a
             class="nav-link"
             href="/" @click.prevent="logout"
-            style="color: #FFF"
             >Logout</a>
         </li>
         <li
           v-if="`${isLogged}` === 'false'"
           class="nav-item"
-          @mouseenter="$event.currentTarget.style.background = hoverBackground || '#AFAFB2' "
-          @mouseleave="$event.currentTarget.style.background = background || '#122542' "
         >
           <router-link
             class="nav-link"
             to="Login"
-            :style="{color: linkColor || '#FFF'}"
           >Login</router-link>
         </li>
         <li
           v-if="`${isLogged}` === 'false'"
           class="nav-item"
-          @mouseenter="$event.currentTarget.style.background = hoverBackground || '#AFAFB2' "
-          @mouseleave="$event.currentTarget.style.background = background || '#122542' "
         >
           <router-link
             class="nav-link"
             to="Signup"
-            :style="{color: linkColor || '#FFF'}"
           >Signup</router-link>
         </li>
       </ul>
@@ -96,7 +79,7 @@ export default {
     }
   },
   name: 'Navbar',
-  props: ['navLinks', 'background', 'linkColor', 'hoverBackground', 'imagePath'],
+  props: ['navLinks', 'imagePath'],
   methods: {
     logout() {
       localStorage.clear()
@@ -122,6 +105,11 @@ export default {
 </script>
 
 <style scoped>
+
+nav {
+  background-color: #122542;
+}
+
 nav {
   width: 100%;
 }
@@ -147,7 +135,6 @@ a {
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
-  color: #FFF;
 }
 
 figure {
@@ -163,6 +150,10 @@ figure {
 .navbar {
   flex-flow: row;
   display: inline-flex;
+}
+
+li:hover{
+  background-color: #AFAFB2;
 }
 
 </style>

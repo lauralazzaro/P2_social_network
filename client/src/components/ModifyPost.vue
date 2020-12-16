@@ -57,7 +57,6 @@ export default {
     return {
       text: '',
       file: null,
-      subject: 1,
       imgUrl: null,
       showPreview: false,
       imagePreview: ''
@@ -70,7 +69,6 @@ export default {
       if (this.file) formData.append('file', this.file, this.file.name)
       if (this.text) formData.append('text', this.text)
       if (this.imgUrl) formData.append('imageUrl', this.imgUrl)
-      formData.append('subject', JSON.stringify(this.subject))
 
       posts.modifyPost(`${this.$route.params.id}`, formData)
         .then(() => {
@@ -104,7 +102,6 @@ export default {
           console.log(res)
           if(res.data.imageUrl !== 'null') this.imgUrl = res.data.imageUrl
           this.text = res.data.text
-          this.subject = 1
         })
         .catch((err) => console.log(err))
     }

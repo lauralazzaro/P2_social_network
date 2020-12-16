@@ -16,7 +16,6 @@
         <img
           v-bind:src="imgUrl"
           v-if="!showPreview"
-          style="max-width: 500px; margin-bottom: 30px"
         />
         <div class="custom-file">
           <label for="file" class="custom-file-label">Upload image</label>
@@ -102,11 +101,9 @@ export default {
       this.id_user = parseInt(localStorage.getItem('id_user'))
       posts.getOneComment(this.$route.params.id)
         .then((res) => {
-          console.log(res)
           this.text = res.data.text
           if(res.data.imageUrl !== 'null') this.imgUrl = res.data.imageUrl
           this.id_post = res.data.id_post
-          this.subject = 1
         })
         .catch((err) => console.log(err))
     }

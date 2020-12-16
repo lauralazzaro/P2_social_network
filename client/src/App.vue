@@ -36,7 +36,6 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
   margin-top: 60px;
   max-width: 900px;
 }
@@ -47,8 +46,8 @@ input {
 }
 
 button {
-  margin-top: 30px;
-  margin-bottom: 30px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 body {
@@ -60,7 +59,6 @@ body {
   background-color: #FFFFFF;
   border-radius: 5px;
   padding: 15px;
-  color: #122542;
 }
 
 img{
@@ -71,4 +69,9 @@ img{
 textarea{
   margin-top: 10px;
 }
+
+a, a:hover{
+  color: #FFFFFF;
+}
+
 </style>

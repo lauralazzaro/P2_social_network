@@ -4,7 +4,6 @@ db.comments = require('./commentModel');
 db.posts = require('./postsModel');
 db.users = require('./userModel');
 db.roles = require('./roleModel');
-db.subjects = require('./subjetModel');
 
 // one post has one user (creator)
 db.posts.belongsTo(db.users, {
@@ -29,11 +28,6 @@ db.comments.belongsTo(db.users, {
 // one comment has one post as parent
 db.comments.belongsTo(db.posts, {
     foreignKey: 'id_post'
-});
-
-// one post has one subject
-db.posts.belongsTo(db.subjects, {
-    foreignKey: 'id_subject'
 });
 
 // one user has one role

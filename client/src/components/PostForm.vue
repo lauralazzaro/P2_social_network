@@ -12,6 +12,7 @@
         <img
           v-bind:src="imagePreview"
           v-show="showPreview"
+          alt="preview image upload"
         />
         <div class="custom-file">
           <label for="file" class="custom-file-label">Upload image</label>

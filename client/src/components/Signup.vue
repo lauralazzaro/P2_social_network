@@ -12,7 +12,6 @@
       <input
         id="username"
         name="username"
-        label="username"
         v-model="body.username"
         placeholder="username"
         class="form-control col-md-6"
@@ -22,7 +21,6 @@
         id="email"
         type="email"
         name="email"
-        label="email"
         v-model="body.email"
         placeholder="email"
         class="form-control col-md-6"
@@ -32,7 +30,6 @@
         id="password"
         type="password"
         name="password"
-        label="password"
         v-model="body.password"
         placeholder="password"
         class="form-control col-md-6"
