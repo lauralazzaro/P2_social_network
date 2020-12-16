@@ -23,10 +23,6 @@ const post = db.define('post', {
     imageUrl: {
         type: Sequelize.STRING,
         unsigned: true,
-    },
-    id_subject: {
-        type: Sequelize.INTEGER,
-        unsigned: true,
     }
 });
 

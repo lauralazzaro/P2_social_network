@@ -29,8 +29,7 @@ exports.createPost = (req, res) => {
     post.create({
         id_user: data.id_user,
         text: text,
-        imageUrl: imgUrl,
-        id_subject: data.id_subject
+        imageUrl: imgUrl
     })
         .then(() => res.status(200).json({message: 'post created'}))
         .catch((err) => res.status(400).json({err}))
@@ -43,8 +42,7 @@ exports.updatePost = (req, res) => {
 
     post.update({
             text: text,
-            imageUrl: imgUrl,
-            id_subject: data.id_subject
+            imageUrl: imgUrl
         },
         {where: {id_post: req.params.id}})
         .then(() => res.status(200).json({message: 'post updated'}))
